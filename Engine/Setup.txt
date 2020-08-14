@@ -1,0 +1,4 @@
+Terrain Filename: ../Images/heightmap.bmp
+Terrain Height: 513
+Terrain Width: 513
+Terrain Scaling: 12.0

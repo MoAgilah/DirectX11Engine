@@ -1,0 +1,11 @@
+add collision points
+finish ray debug drawing i.e. point in space and a direction
+add resolutions i.e. stop the two objects intersecting			 > <	<  >
+	//closest point pt to line segment done
+	//closest line seg to line seg done
+	Closest Point on Triangle to Point need
+
+
+add swept volumes i.e. fast moving against static
+	//	[]------>-----()-------->------[]
+

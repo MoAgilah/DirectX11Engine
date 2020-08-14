@@ -1,0 +1,5 @@
+Terrain Filename: Resources/Images/heightmap01.bmp
+Terrain Height: 513
+Terrain Width: 513
+Terrain Scaling: 12
+Colour Map Filename: Resources/Images/colourmap.bmp
