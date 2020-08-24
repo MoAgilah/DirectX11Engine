@@ -210,7 +210,6 @@
     <ClCompile Include="Source\StateMgr.cpp" />
     <ClCompile Include="Source\Static3DObj.cpp" />
     <ClCompile Include="Source\Terrain.cpp" />
-    <ClCompile Include="Source\TerrainShader.cpp" />
     <ClCompile Include="Source\TextMgr.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\TextureMgr.cpp" />
@@ -281,7 +280,6 @@
     <ClInclude Include="Headers\StateMgr.h" />
     <ClInclude Include="Headers\Static3DObj.h" />
     <ClInclude Include="Headers\Terrain.h" />
-    <ClInclude Include="Headers\TerrainShader.h" />
     <ClInclude Include="Headers\TextMgr.h" />
     <ClInclude Include="Headers\Texture.h" />
     <ClInclude Include="Headers\TextureMgr.h" />
@@ -306,7 +304,6 @@
     <Text Include="Resources\Data\robotHierarchy.txt" />
     <Text Include="Resources\Data\RobotIdleAnimDAE.txt" />
     <Text Include="Resources\Data\Setup.txt" />
-    <Text Include="TODONEXT.txt" />
     <Text Include="usefulsites.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -329,12 +326,6 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.1</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.1</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\PixelShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\TexturedLightsps.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -363,12 +354,6 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.1</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.1</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\VertexShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

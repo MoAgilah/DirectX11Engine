@@ -10,7 +10,6 @@
 #include "../Headers/ColourShader.h"
 #include "../Headers/TextureShader.h"
 #include "../Headers/LightShader.h"
-#include "../Headers/TerrainShader.h"
 #include "..//Headers/Utils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,14 +28,12 @@ public:
 		XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture);
 	bool RenderLightShader(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
 		XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, XMFLOAT3 cameraPosition, Light* lights[]);
-	bool RenderTerrainShader(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
-		XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, XMFLOAT3 cameraPosition, Light* lights[]);
 	void Release();
 private:
 	ColourShader* m_pColourShader;
 	TextureShader* m_pTextureShader;
 	LightShader* m_pLightShader;
-	TerrainShader* m_pTerrainShader;
+	
 };
 
 

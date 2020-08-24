@@ -375,9 +375,6 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>Source Files\Engine\Modules\Graphics\Debug\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TerrainShader.cpp">
-      <Filter>Source Files\Engine\Modules\Graphics\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="Source\D2DMgr.cpp">
       <Filter>Source Files\GameObject\3D\HiearchalAnim</Filter>
     </ClCompile>
@@ -611,9 +608,6 @@
     <ClInclude Include="imgui\imgui_impl_win32.h">
       <Filter>Header Files\Engine\Modules\Graphics\Debug\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\TerrainShader.h">
-      <Filter>Header Files\Engine\Modules\Graphics\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\GameObject3D.h">
       <Filter>Header Files\GameObject\3D</Filter>
     </ClInclude>
@@ -652,7 +646,6 @@
     <Text Include="Resources\Data\Setup.txt">
       <Filter>Resource Files\Data</Filter>
     </Text>
-    <Text Include="TODONEXT.txt" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\Colourps.hlsl">
@@ -665,12 +658,6 @@
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Texturevs.hlsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\PixelShader.hlsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\VertexShader.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\TexturedLightsps.hlsl">

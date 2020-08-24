@@ -33,7 +33,7 @@ bool LightShader::Initialize(ID3D11Device* device, HWND hwnd)
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"Resources/Shaders/VertexShader.hlsl", L"Resources/Shaders/PixelShader.hlsl");
+	result = InitializeShader(device, hwnd, L"Resources/Shaders/TexturedLightsvs.hlsl", L"Resources/Shaders/TexturedLightsps.hlsl");
 	if(!result)
 	{
 		return false;

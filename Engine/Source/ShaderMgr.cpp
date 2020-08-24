@@ -51,19 +51,6 @@ bool ShaderMgr::InitializeShaders(ID3D11Device* device, HWND hwnd)
 		return false;
 	}
 
-	m_pTerrainShader = new TerrainShader;
-	if (!m_pTerrainShader)
-	{
-		return false;
-	}
-
-	result = m_pTerrainShader->Initialize(device, hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, "Could not initialize the terrain shader object.", "Error", MB_OK);
-		return false;
-	}
-
 	return true;
 }
 
@@ -97,20 +84,9 @@ bool ShaderMgr::RenderLightShader(ID3D11DeviceContext* deviceContext, int indexC
 	return true;
 }
 
-bool ShaderMgr::RenderTerrainShader(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, XMFLOAT3 cameraPosition, Light* lights[])
-{
-	if (!m_pTerrainShader->Render(deviceContext, indexCount, worldMatrix, viewMatrix, projectionMatrix, texture, cameraPosition, lights))
-	{
-		return false;
-	}
-
-	return true;
-}
-
 void ShaderMgr::Release()
 {
 	SAFE_RELEASE(m_pColourShader);
 	SAFE_RELEASE(m_pTextureShader);
 	SAFE_RELEASE(m_pLightShader);
-	SAFE_RELEASE(m_pTerrainShader);
 }
