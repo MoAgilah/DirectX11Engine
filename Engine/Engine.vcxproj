@@ -272,6 +272,7 @@
     <ClInclude Include="Headers\Mouse.h" />
     <ClInclude Include="Headers\MouseEvent.h" />
     <ClInclude Include="Headers\OBB.h" />
+    <ClInclude Include="Headers\Paddle.h" />
     <ClInclude Include="Headers\Plane.h" />
     <ClInclude Include="Headers\Robot.h" />
     <ClInclude Include="Headers\ShaderMgr.h" />
@@ -372,6 +373,7 @@
     <Image Include="Resources\Images\Mario.png" />
     <Image Include="Resources\Images\materialmap.dds" />
     <Image Include="Resources\Images\moss.dds" />
+    <Image Include="Resources\Images\paddle.png" />
     <Image Include="Resources\Images\smario.dds" />
     <Image Include="Resources\Images\smario.png" />
     <Image Include="Resources\Images\square.png" />

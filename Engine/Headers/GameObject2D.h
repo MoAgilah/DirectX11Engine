@@ -26,7 +26,7 @@ public:
 	~GameObject2D();
 
 	string GetName();
-	void SetPosition(XMFLOAT2& pos);
+	void SetPosition(const XMFLOAT2& pos);
 	void SetPosition(float x, float y);
 	XMFLOAT2 GetPosition();
 	void SetRotation(float angle);

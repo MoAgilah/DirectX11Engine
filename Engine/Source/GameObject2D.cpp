@@ -23,7 +23,7 @@ string GameObject2D::GetName()
 	return m_sName;
 }
 
-void GameObject2D::SetPosition(XMFLOAT2& pos)
+void GameObject2D::SetPosition(const XMFLOAT2& pos)
 {
 	m_f2Position = pos;
 }

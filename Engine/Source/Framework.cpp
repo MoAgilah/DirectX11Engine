@@ -77,7 +77,7 @@ bool Framework::Initialise()
 	}
 
 	m_pStateManager = GameStateManager::GetStateMgr();
-	m_pStateManager->ChangeState(new HierarchyState(m_pGraphics, m_pCollisionsMgr, m_pInput, &m_Timer, "Hierarchy State"));
+	m_pStateManager->ChangeState(new BlankState(m_pGraphics, m_pCollisionsMgr, m_pInput, &m_Timer, "Hierarchy State"));
 
 	return true;
 }

@@ -623,6 +623,9 @@
     <ClInclude Include="DirectXTemplate\PrimitiveBatch.h">
       <Filter>Header Files\Engine\Modules\Graphics\Debug\PrimitiveBatch</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Paddle.h">
+      <Filter>Header Files\GameObject\2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="usefulsites.txt">
@@ -732,6 +735,9 @@
       <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Resources\Images\colourmap.bmp">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Resources\Images\paddle.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
   </ItemGroup>

@@ -56,6 +56,9 @@ public:
 	void SetScale(XMFLOAT2 scale);
 	XMFLOAT2 GetScale();
 
+	XMFLOAT2 GetOrigin() {
+		return m_f2Origin;
+	}
 	void SetOrigin(XMFLOAT2 origin);
 	void SetColour(XMVECTORF32 colour);
 
