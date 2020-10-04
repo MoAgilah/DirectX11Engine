@@ -14,55 +14,55 @@ Mouse::~Mouse()
 void Mouse::OnLeftPressed(int x, int y)
 {
 	m_bLeftIsDown = true;
-	MouseEvent me(MEventType::LPress, x, y);
+	MouseEvent me(MouseEvent::MEventType::LPress, x, y);
 	m_qMEventBuffer.push(me);
 }
 
 void Mouse::OnLeftReleased(int x, int y)
 {
 	m_bLeftIsDown = false;
-	m_qMEventBuffer.push(MouseEvent(MEventType::LRelease, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::LRelease, x, y));
 }
 
 void Mouse::OnRightPressed(int x, int y)
 {
 	m_bRightIsDown = true;
-	m_qMEventBuffer.push(MouseEvent(MEventType::RPress, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::RPress, x, y));
 }
 
 void Mouse::OnRightReleased(int x, int y)
 {
 	m_bRightIsDown = false;
-	m_qMEventBuffer.push(MouseEvent(MEventType::RRelease, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::RRelease, x, y));
 }
 
 void Mouse::OnMiddlePressed(int x, int y)
 {
 	m_bMiddleIsDown = true;
-	m_qMEventBuffer.push(MouseEvent(MEventType::MPress, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::MPress, x, y));
 }
 
 void Mouse::OnMiddleReleased(int x, int y)
 {
 	m_bMiddleIsDown = false;
-	m_qMEventBuffer.push(MouseEvent(MEventType::MRelease, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::MRelease, x, y));
 }
 
 void Mouse::OnWheelUp(int x, int y)
 {
-	m_qMEventBuffer.push(MouseEvent(MEventType::WheelUp, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::WheelUp, x, y));
 }
 
 void Mouse::OnWheelDown(int x, int y)
 {
-	m_qMEventBuffer.push(MouseEvent(MEventType::WheelDown, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::WheelDown, x, y));
 }
 
 void Mouse::OnMouseMove(int x, int y)
 {
 	m_iXPos = x;
 	m_iYPos = y;
-	m_qMEventBuffer.push(MouseEvent(MEventType::Move, x, y));
+	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::Move, x, y));
 }
 
 bool Mouse::IsLeftDown() const
@@ -90,7 +90,7 @@ int Mouse::GetPosY() const
 	return m_iYPos;
 }
 
-MousePoint Mouse::GetPos() const
+MouseEvent::MousePoint Mouse::GetPos() const
 {
 	return { m_iXPos, m_iYPos };
 }

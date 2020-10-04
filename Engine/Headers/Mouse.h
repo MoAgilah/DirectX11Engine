@@ -39,7 +39,7 @@ public:
 
 	int GetPosX() const;
 	int GetPosY() const;
-	MousePoint GetPos() const;
+	MouseEvent::MousePoint GetPos() const;
 
 	bool EventBufferIsEmpty() const;
 	MouseEvent ReadEvent();
