@@ -31,11 +31,19 @@ BoundingCapsule::~BoundingCapsule()
 void BoundingCapsule::Update(XMFLOAT2 center, XMFLOAT2 size)
 {
 	m_fRadius = (size.x * .5f) * m_f3Percentile.x;
-	m_f3Size = XMFLOAT3(m_fRadius, m_fRadius, m_fRadius);
 
-	m_LineSeg.SetCenter2D(XMFLOAT2((center.x + m_f3Padding.x) + m_fRadius, (center.y + m_f3Padding.y) + m_fRadius));
-	m_LineSeg.SetBottom2D(XMFLOAT2(m_LineSeg.GetCenter2D().x, m_LineSeg.GetCenter2D().y + m_fRadius));
-	m_LineSeg.SetTop2D(XMFLOAT2(m_LineSeg.GetCenter2D().x, m_LineSeg.GetCenter2D().y - m_fRadius));
+	if (size.x > size.y) { m_fRadius = size.y * .5f; m_fLength = size.x; }
+	else { m_fRadius = size.x * .5f; m_fLength = size.y; }
+
+	m_LineSeg.SetCenter2D(XMFLOAT2(center.x , center.y ));
+	m_f3Center = m_LineSeg.GetCenter3D();
+	
+
+	m_LineSeg.SetBottom2D(XMFLOAT2(center.x, center.y + m_fLength * .5f - m_fRadius));
+	m_LineSeg.SetTop2D(XMFLOAT2(center.x, center.y - m_fLength * .5f + m_fRadius));
+	
+	//m_LineSeg.SetBottom2D(XMFLOAT2(m_LineSeg.GetCenter2D().x, (m_LineSeg.GetCenter2D().y + m_fLength * .5f) - 15.f));
+	//m_LineSeg.SetTop2D(XMFLOAT2(m_LineSeg.GetCenter2D().x, (m_LineSeg.GetCenter2D().y - m_fLength * .5f) + 15.f));
 }
 
 void BoundingCapsule::Update(XMFLOAT3 center, XMFLOAT3 size)
@@ -159,6 +167,7 @@ bool BoundingCapsule::Intersect3DAABB(AABB* AABB3D)
 
 bool BoundingCapsule::IntersectSphere2D(BoundingSphere* sphere)
 {
+
 	float distSquared = GetLineSeg().SquareDistPointSegment2D(sphere->GetCenter2D());
 
 	float radiusSum = sphere->GetRadius() + GetRadius();

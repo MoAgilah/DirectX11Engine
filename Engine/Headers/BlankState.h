@@ -10,16 +10,11 @@
 #include "../Headers/Utils.h"
 #include "../Headers/GameState.h"
 #include "../Headers/Light.h"
-#include "../Headers/AABB.h"
-#include "../Headers/OBB.h"
-#include "../Headers/BoundingCapsule.h"
-#include "../Headers/BoundingSphere.h"
-using namespace DirectX;
 
-enum CollType
-{
-	AABB2AABB, PNT2AABB, SPH2AABB, PNT2SPH, SPH2SPH, SPH2CAP, CAP2CAP, PNT2CAP, AABB2CAP
-};
+#include "../Headers/Paddle.h"
+#include "../Headers/Ball.h"
+
+using namespace DirectX;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: BlankState
@@ -36,13 +31,9 @@ public:
 	void Update(const float& deltaTime);
 	void Draw();
 private:
-	Sprite* crosshair;
-	Triangle triangle;
-	LineSeg lineSeg;
-	BoundingCapsule* cap1, *cap2;
-	BoundingSphere *sph1, *sph2;
-	AABB *box1, *box2;
-	OBB *obox1, *obox2;
+	Paddle* m_pPaddles[2];
+	Ball* m_pBall;
+
 };
 
 #endif

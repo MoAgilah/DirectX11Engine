@@ -348,9 +348,6 @@
     <ClCompile Include="Source\AABB.cpp">
       <Filter>Source Files\Engine\Modules\Collisions\BoundingVolumes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BoundingCapsule.cpp">
-      <Filter>Source Files\Engine\Modules\Collisions\BoundingVolumes</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BoundingSphere.cpp">
       <Filter>Source Files\Engine\Modules\Collisions\BoundingVolumes</Filter>
     </ClCompile>
@@ -388,6 +385,15 @@
       <Filter>Source Files\GameObject\3D</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameObject2D.cpp">
+      <Filter>Source Files\GameObject\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BoundingCapsule.cpp">
+      <Filter>Source Files\Engine\Modules\Collisions\BoundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Paddle.cpp">
+      <Filter>Source Files\GameObject\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Ball.cpp">
       <Filter>Source Files\GameObject\2D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -626,6 +632,9 @@
     <ClInclude Include="Headers\Paddle.h">
       <Filter>Header Files\GameObject\2D</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Ball.h">
+      <Filter>Header Files\GameObject\2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="usefulsites.txt">
@@ -738,6 +747,9 @@
       <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Resources\Images\paddle.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Resources\Images\ball.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
   </ItemGroup>

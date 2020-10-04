@@ -65,7 +65,6 @@ void Timer::Reset()
 	m_i64PrevTime = currTime;
 	m_i64StopTime = 0;
 	m_bStopped = false;
-	Start();
 }
 
 void Timer::Start() 

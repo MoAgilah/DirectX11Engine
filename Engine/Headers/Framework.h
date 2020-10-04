@@ -49,11 +49,14 @@ private:
 	void ShutdownWindows();
 
 private:
-	LPCSTR m_lpApplicationName;
+	LPCSTR m_ApplicationName;
 	HINSTANCE m_HInstance;
 	HWND m_Hwnd;
 
-	bool m_bIsPaused;
+	bool m_IsPaused;
+	bool m_IsResizing;
+	bool m_IsMinimised;
+	bool m_IsMaximised;
 
 	//Modules
 	Timer m_Timer;

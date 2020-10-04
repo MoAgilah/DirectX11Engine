@@ -40,7 +40,7 @@ bool Sprite::Initialise(D3DMgr* d3dMgr, Texture* texture, XMFLOAT2 Pos, XMFLOAT2
 
 	m_f2ScreenPos = Pos;
 
-	m_f2Origin = XMFLOAT2(0,0);
+	m_f2Origin = Origin;
 
 	return true;
 }

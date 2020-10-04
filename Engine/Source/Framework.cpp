@@ -4,37 +4,15 @@
 #include "../Headers/Framework.h"
 
 Framework::Framework()
-{
-	m_lpApplicationName = nullptr;
-	m_HInstance = nullptr;
-	m_Hwnd = nullptr;
-
-	m_bIsPaused = false;
-
-	m_pInput = nullptr;
-	m_pGraphics = nullptr;
-	m_pCollisionsMgr = nullptr;
-}
-
-
-Framework::Framework(const Framework& other)
-{
-	m_lpApplicationName = other.m_lpApplicationName;
-	m_HInstance = other.m_HInstance;
-	m_Hwnd = other.m_Hwnd;
-
-	m_bIsPaused = other.m_bIsPaused;
-
-	m_pInput = other.m_pInput;
-	m_pGraphics = other.m_pGraphics;
-	m_pCollisionsMgr = other.m_pCollisionsMgr;
-}
-
+	:m_ApplicationName(nullptr),m_HInstance(nullptr),m_Hwnd(nullptr),
+	m_IsPaused(false), m_IsResizing(false), m_IsMinimised(false), m_IsMaximised(false), 
+	m_pInput(Input::GetInput()),m_pGraphics(new Graphics),m_pCollisionsMgr(nullptr),m_pStateManager(GameStateManager::GetStateMgr())
+{}
 
 Framework::~Framework()
 {
+	Release();
 }
-
 
 bool Framework::Initialise()
 {
@@ -48,10 +26,7 @@ bool Framework::Initialise()
 	// Initialize the windows api.
 	InitWindows(screenWidth, screenHeight);
 
-	m_pInput = Input::GetInput();
-
 	// Create the graphics object.  This object will handle rendering all the graphics for this application.
-	m_pGraphics = new Graphics;
 	if (!m_pGraphics) return false;
 
 	// Initialize the graphics object.
@@ -76,7 +51,6 @@ bool Framework::Initialise()
 		return false;
 	}
 
-	m_pStateManager = GameStateManager::GetStateMgr();
 	m_pStateManager->ChangeState(new BlankState(m_pGraphics, m_pCollisionsMgr, m_pInput, &m_Timer, "Hierarchy State"));
 
 	return true;
@@ -129,7 +103,7 @@ void Framework::Run()
 		}
 		else
 		{
-			if (!m_bIsPaused)
+			if (!m_IsPaused)
 			{
 				m_Timer.Tick();
 
@@ -151,9 +125,8 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 	switch (umsg)
 	{
 		//keyboard messages--
-		// Check if a key has been pressed on the keyboard.
-	case WM_KEYDOWN:
-	{
+		case WM_KEYDOWN:
+		{
 		// If a key is pressed send it to the input object so it can record that state.
 		if (m_pInput->GetKeyboard()->IsKeysAutoRepeat())
 		{
@@ -162,7 +135,7 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 		else
 		{
 			const bool wasPressed = lparam & 0x40000000;
-			
+
 			if (!wasPressed)
 			{
 				m_pInput->GetKeyboard()->OnKeyPressed(static_cast<unsigned char>(wparam));
@@ -171,17 +144,15 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 		return 0;
 	}
 
-	// Check if a key has been released on the keyboard.
-	case WM_KEYUP:
-	{
+		case WM_KEYUP:
+		{
 		// If a key is released then send it to the input object so it can unset the state for that key.
 		m_pInput->GetKeyboard()->OnKeyReleased(static_cast<unsigned char>(wparam));
 		return 0;
 	}
 
-	
-	case WM_CHAR:
-	{
+		case WM_CHAR:
+		{
 		if (m_pInput->GetKeyboard()->IsCharsAutoRepeat())
 		{
 			m_pInput->GetKeyboard()->OnChar(static_cast<unsigned char>(wparam));
@@ -197,58 +168,65 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 		return 0;
 	}
 
-	//Mouse Messages--
-	case WM_MOUSEMOVE:
-	{
+		//Mouse Messages--
+		case WM_MOUSEMOVE:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnMouseMove(x, y);
 		return 0;
 	}
-	case WM_LBUTTONDOWN:
-	{
+
+		case WM_LBUTTONDOWN:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnLeftPressed(x, y);
 		return 0;
 	}
-	case WM_RBUTTONDOWN:
-	{
+
+		case WM_RBUTTONDOWN:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnRightPressed(x, y);
 		return 0;
 	}
-	case WM_MBUTTONDOWN:
-	{
+
+		case WM_MBUTTONDOWN:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnMiddlePressed(x, y);
 		return 0;
 	}
-	case WM_LBUTTONUP:
-	{
+
+		case WM_LBUTTONUP:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnLeftReleased(x, y);
 		return 0;
 	}
-	case WM_RBUTTONUP:
-	{
+
+		case WM_RBUTTONUP:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnRightReleased(x, y);
 		return 0;
 	}
-	case WM_MBUTTONUP:
-	{
+
+		case WM_MBUTTONUP:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		m_pInput->GetMouse()->OnMiddleReleased(x, y);
 		return 0;
 	}
-	case WM_MOUSEWHEEL:
-	{
+
+		case WM_MOUSEWHEEL:
+		{
 		int x = LOWORD(lparam);
 		int y = HIWORD(lparam);
 		if (GET_WHEEL_DELTA_WPARAM(wparam) > 0)
@@ -262,25 +240,45 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 		return 0;
 	}
 
-	//active messages
-	case WM_ACTIVATE:
+		//OnResizing--
+		case WM_ENTERSIZEMOVE:
+		{
+		m_IsPaused = true;
+		m_IsResizing = true;
+		m_Timer.Stop();
+		return 0;
+	}
+
+		case WM_EXITSIZEMOVE:
+		{
+		m_IsPaused = false;
+		m_IsResizing = false;
+		m_Timer.Start();
+		//OnResize();
+		return 0;
+	}
+
+		//OnActivate/Deactive--
+		case WM_ACTIVATE:
+		{
 		if (LOWORD(wparam) == WA_INACTIVE)
 		{
-			m_bIsPaused = true;
+			m_IsPaused = true;
 			m_Timer.Stop();
 		}
 		else
 		{
-			m_bIsPaused = false;
+			m_IsPaused = false;
 			m_Timer.Start();
 		}
-
+		return 0;
+	}
 
 		// Any other messages send to the default message handler as our application won't make use of them.
-	default:
-	{
-		return DefWindowProc(hwnd, umsg, wparam, lparam);
-	}
+		default:
+		{
+			return DefWindowProc(hwnd, umsg, wparam, lparam);
+		}
 	}
 }
 
@@ -298,7 +296,7 @@ void Framework::CalculateFrameStats()
 		float fps = (float)frameCnt; // fps = frameCnt / 1
 		float mspf = 1000.0f / fps;
 
-		std::string out = m_lpApplicationName;
+		std::string out = m_ApplicationName;
 		out += " FPS: ";
 		out += std::to_string(fps);
 		out += " Frame Time: ";
@@ -334,8 +332,19 @@ void Framework::ProcessInput()
 		PostQuitMessage(0);
 	}
 
-	float cameraSpeed = 20.0f;
+	while (!m_pInput->GetMouse()->EventBufferIsEmpty())
+	{
+		MouseEvent me = m_pInput->GetMouse()->ReadEvent();
+		std::string outmsg = "X: ";
+		outmsg += std::to_string(me.GetPosX());
+		outmsg += " Y: ";
+		outmsg += std::to_string(me.GetPosY());
+		outmsg += "\n";
+		OutputDebugStringA(outmsg.c_str());
+	}
 
+		/*
+	float cameraSpeed = 20.0f;
 
 	if (Input::GetInput()->GetKeyboard()->KeyIsPressed(VK_UP))
 	{
@@ -376,17 +385,7 @@ void Framework::ProcessInput()
 	{
 		m_pGraphics->GetCamera()->Strafe(cameraSpeed * m_Timer.DeltaTime());
 	}
-
-	while (!m_pInput->GetMouse()->EventBufferIsEmpty())
-	{
-		MouseEvent me = m_pInput->GetMouse()->ReadEvent();
-		std::string outmsg = "X: ";
-		outmsg += std::to_string(me.GetPosX());
-		outmsg += " Y: ";
-		outmsg += std::to_string(me.GetPosY());
-		outmsg += "\n";
-		OutputDebugStringA(outmsg.c_str());
-	}
+	*/
 }
 
 void Framework::UpdateScene(const float& deltatime)
@@ -407,7 +406,6 @@ void Framework::InitWindows(int& screenWidth, int& screenHeight)
 	DEVMODE dmScreenSettings;
 	int posX, posY;
 
-
 	// Get an external pointer to this object.	
 	gs_pApplicationHandle = this;
 
@@ -415,7 +413,7 @@ void Framework::InitWindows(int& screenWidth, int& screenHeight)
 	m_HInstance = GetModuleHandle(NULL);
 
 	// Give the application a name.
-	m_lpApplicationName = "Engine";
+	m_ApplicationName = "Engine";
 
 	// Setup the windows class with default settings.
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -428,7 +426,7 @@ void Framework::InitWindows(int& screenWidth, int& screenHeight)
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = m_lpApplicationName;
+	wc.lpszClassName = m_ApplicationName;
 	wc.cbSize = sizeof(WNDCLASSEX);
 
 
@@ -478,7 +476,7 @@ void Framework::InitWindows(int& screenWidth, int& screenHeight)
 	}
 
 	// Create the window with the screen settings and get the handle to it.
-	m_Hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_lpApplicationName, m_lpApplicationName,
+	m_Hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_ApplicationName, m_ApplicationName,
 		style, posX, posY, screenWidth, screenHeight, NULL, NULL, m_HInstance, NULL);
 
 	// Bring the window up on the screen and set it as main focus.
@@ -488,7 +486,7 @@ void Framework::InitWindows(int& screenWidth, int& screenHeight)
 
 	// Hide the mouse cursor.
 	ShowCursor(true);
-	SetCursorPos(200, 300);
+	SetCursorPos(posX, posY);
 
 	return;
 }
@@ -510,7 +508,7 @@ void Framework::ShutdownWindows()
 	m_Hwnd = NULL;
 
 	// Remove the application instance.
-	UnregisterClass(m_lpApplicationName, m_HInstance);
+	UnregisterClass(m_ApplicationName, m_HInstance);
 	m_HInstance = NULL;
 
 	// Release the pointer to this class.

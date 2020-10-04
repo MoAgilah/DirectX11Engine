@@ -33,6 +33,7 @@ public:
 	void Update(XMFLOAT2 center, XMFLOAT2 size);
 	void Update(XMFLOAT3 center, XMFLOAT3 size);
 
+	float GetLength() { return m_fLength; }
 	float GetRadius() { return m_fRadius; }
 	LineSeg GetLineSeg() { return m_LineSeg; }
 
@@ -56,6 +57,7 @@ public:
 private:
 	LineSeg m_LineSeg;
 	float m_fRadius;
+	float m_fLength;
 };
 
 #endif // !BoundingSphere_H

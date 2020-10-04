@@ -171,6 +171,7 @@
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\AnimationController.cpp" />
     <ClCompile Include="Source\AnimationParser.cpp" />
+    <ClCompile Include="Source\Ball.cpp" />
     <ClCompile Include="Source\BlankState.cpp" />
     <ClCompile Include="Source\BoundingCapsule.cpp" />
     <ClCompile Include="Source\BoundingSphere.cpp" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Source\Plane.cpp" />
     <ClCompile Include="Source\Robot.cpp" />
     <ClCompile Include="Source\ShaderMgr.cpp" />
+    <ClCompile Include="Source\Paddle.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\SpriteMgr.cpp" />
     <ClCompile Include="Source\StateMgr.cpp" />
@@ -240,6 +242,7 @@
     <ClInclude Include="Headers\Animation.h" />
     <ClInclude Include="Headers\AnimationController.h" />
     <ClInclude Include="Headers\AnimationParser.h" />
+    <ClInclude Include="Headers\Ball.h" />
     <ClInclude Include="Headers\BlankState.h" />
     <ClInclude Include="Headers\BoundingCapsule.h" />
     <ClInclude Include="Headers\BoundingSphere.h" />
@@ -331,10 +334,22 @@
     <FxCompile Include="Resources\Shaders\TexturedLightsps.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\TexturedLightsvs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Textureps.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -359,6 +374,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Images\asphalt.dds" />
+    <Image Include="Resources\Images\ball.png" />
     <Image Include="Resources\Images\cat.dds" />
     <Image Include="Resources\Images\cat.png" />
     <Image Include="Resources\Images\circle.png" />
