@@ -21,8 +21,8 @@ class Mouse
 {
 public:
 	Mouse();
-	Mouse(const Mouse&);
 	~Mouse();
+
 	void OnLeftPressed(int x, int y);
 	void OnLeftReleased(int x, int y);
 	void OnRightPressed(int x, int y);
@@ -33,15 +33,15 @@ public:
 	void OnWheelDown(int x, int y);
 	void OnMouseMove(int x, int y);
 
-	bool IsLeftDown();
-	bool IsMiddleDown();
-	bool IsRightDown();
+	bool IsLeftDown() const;
+	bool IsMiddleDown() const;
+	bool IsRightDown() const;
 
-	int GetPosX();
-	int GetPosY();
-	MousePoint GetPos();
+	int GetPosX() const;
+	int GetPosY() const;
+	MousePoint GetPos() const;
 
-	bool EventBufferIsEmpty();
+	bool EventBufferIsEmpty() const;
 	MouseEvent ReadEvent();
 
 private:

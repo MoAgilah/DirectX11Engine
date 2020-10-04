@@ -4,21 +4,12 @@
 #include "../Headers/Mouse.h"
 
 Mouse::Mouse()
-{
-	m_bLeftIsDown = false;
-	m_bRightIsDown = false;
-	m_bMiddleIsDown = false;
-	m_iXPos = 0;
-	m_iYPos = 0;
-}
-
-Mouse::Mouse(const Mouse&)
-{
-}
+	:m_bLeftIsDown(false), m_bRightIsDown(false), m_bMiddleIsDown(false),
+	m_iXPos(0),m_iYPos(0)
+{}
 
 Mouse::~Mouse()
-{
-}
+{}
 
 void Mouse::OnLeftPressed(int x, int y)
 {
@@ -74,37 +65,37 @@ void Mouse::OnMouseMove(int x, int y)
 	m_qMEventBuffer.push(MouseEvent(MEventType::Move, x, y));
 }
 
-bool Mouse::IsLeftDown()
+bool Mouse::IsLeftDown() const
 {
 	return m_bLeftIsDown;
 }
 
-bool Mouse::IsMiddleDown()
+bool Mouse::IsMiddleDown() const
 {
 	return m_bMiddleIsDown;
 }
 
-bool Mouse::IsRightDown()
+bool Mouse::IsRightDown() const
 {
 	return m_bRightIsDown;
 }
 
-int Mouse::GetPosX()
+int Mouse::GetPosX() const
 {
 	return m_iXPos;
 }
 
-int Mouse::GetPosY()
+int Mouse::GetPosY() const
 {
 	return m_iYPos;
 }
 
-MousePoint Mouse::GetPos()
+MousePoint Mouse::GetPos() const
 {
 	return { m_iXPos, m_iYPos };
 }
 
-bool Mouse::EventBufferIsEmpty()
+bool Mouse::EventBufferIsEmpty() const
 {
 	return m_qMEventBuffer.empty();
 }

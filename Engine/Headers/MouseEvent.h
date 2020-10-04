@@ -4,35 +4,33 @@
 #ifndef MouseEvent_H
 #define MouseEvent_H
 
-//////////////
-// GLOBALS //
-/////////////
-struct MousePoint
-{
-	int x;
-	int y;
-};
-
-enum MEventType
-{
-	LPress,
-	LRelease,
-	RPress,
-	RRelease,
-	MPress,
-	MRelease,
-	WheelUp,
-	WheelDown,
-	Move,
-	RawMove,
-	Invalid
-};
-
 ////////////////////////////////////////////////////////////////////////////////
 // Classname: MouseEvent
 ////////////////////////////////////////////////////////////////////////////////
 class MouseEvent
 {
+public:
+	struct MousePoint
+	{
+		int x;
+		int y;
+	};
+
+	enum class MEventType
+	{
+		LPress,
+		LRelease,
+		RPress,
+		RRelease,
+		MPress,
+		MRelease,
+		WheelUp,
+		WheelDown,
+		Move,
+		RawMove,
+		Invalid
+	};
+
 public:
 	
 	MouseEvent();

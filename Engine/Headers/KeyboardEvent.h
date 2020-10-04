@@ -10,13 +10,14 @@
 class KeyboardEvent
 {
 public:
-	enum KEventType
+	enum class KEventType
 	{
 		Press,
 		Release,
 		Invalid
 	};
 
+public:
 	KeyboardEvent();
 	KeyboardEvent(const KEventType type, const unsigned char key);
 	~KeyboardEvent();
