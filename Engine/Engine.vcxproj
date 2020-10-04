@@ -188,6 +188,7 @@
     <ClCompile Include="Source\GameObject2D.cpp" />
     <ClCompile Include="Source\GameObject3D.cpp" />
     <ClCompile Include="Source\Graphics.cpp" />
+    <ClCompile Include="Source\Helper.cpp" />
     <ClCompile Include="Source\Hiearchal3DObj.cpp" />
     <ClCompile Include="Source\HierarchyState.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Headers\GameObject3D.h" />
     <ClInclude Include="Headers\GameState.h" />
     <ClInclude Include="Headers\Graphics.h" />
+    <ClInclude Include="Headers\Helpers.h" />
     <ClInclude Include="Headers\Hierarchal3DObj.h" />
     <ClInclude Include="Headers\HierarchyState.h" />
     <ClInclude Include="Headers\Input.h" />

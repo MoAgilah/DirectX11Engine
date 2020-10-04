@@ -19,14 +19,13 @@ class Input
 public:
 	Input();
 	~Input();
-
-	void Initialise();
 	void Release();
 
 	Keyboard* GetKeyboard();
 	Mouse* GetMouse();
 	static Input* GetInput();
 private:
+
 	static Input* s_pInstance;
 	Keyboard* m_pKeyboard;
 	Mouse* m_pMouse;

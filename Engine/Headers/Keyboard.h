@@ -21,29 +21,29 @@ class Keyboard
 {
 public:
 	Keyboard();
-	Keyboard(const Keyboard&);
 	~Keyboard();
+
 	bool KeyIsPressed(const unsigned char keycode);
-	bool KeyBufferIsEmpty();
-	bool CharBufferIsEmpty();
+	bool KeyBufferIsEmpty() const;
+	bool CharBufferIsEmpty() const;
 	KeyboardEvent ReadKey();
 	unsigned char ReadChar();
 	void OnKeyPressed(const unsigned char key);
 	void OnKeyReleased(const unsigned char key);
 	void OnChar(const unsigned char key);
+
 	void EnableAutoRepeatedKeys();
 	void DisableAutoRepeatedKeys();
 	void EnableAutoRepeatedChars();
 	void DisableAutoRepeatedChars();
-	bool IsKeysAutoRepeat();
-	bool IsCharsAutoRepeat();
-
+	bool IsKeysAutoRepeat() const;
+	bool IsCharsAutoRepeat() const;
 private:
-	bool m_bAutoRepeatKeys;
-	bool m_bAutoRepeatChars;
-	bool m_bKeyStates[256];
-	std::queue<KeyboardEvent> m_qKeyBuffer;
-	std::queue<unsigned char> m_qCharBuffer;
+	bool m_AutoRepeatKeys;
+	bool m_AutoRepeatChars;
+	bool m_KeyStates[256];
+	std::queue<KeyboardEvent> mq_KeyBuffer;
+	std::queue<unsigned char> mq_CharBuffer;
 };
 
 #endif // !Keyboard_H

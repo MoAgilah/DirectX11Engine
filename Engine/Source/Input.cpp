@@ -6,20 +6,12 @@
 Input* Input::s_pInstance = nullptr;
 
 Input::Input()
-{
-	m_pKeyboard = nullptr;
-	m_pMouse = nullptr;
-}
+	:m_pKeyboard(new Keyboard), m_pMouse(new Mouse)
+{}
 
 Input::~Input()
 {
-}
-
-
-void Input::Initialise()
-{
-	m_pKeyboard = new Keyboard;
-	m_pMouse = new Mouse;
+	Release();
 }
 
 void Input::Release()
@@ -43,7 +35,6 @@ Input* Input::GetInput()
 	if (!s_pInstance)
 	{
 		s_pInstance = new Input;
-		s_pInstance->Initialise();
 	}
 
 	return s_pInstance;

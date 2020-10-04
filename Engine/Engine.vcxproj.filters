@@ -396,6 +396,9 @@
     <ClCompile Include="Source\Ball.cpp">
       <Filter>Source Files\GameObject\2D</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Helper.cpp">
+      <Filter>Source Files\Engine\Modules\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\ColourShader.h">
@@ -634,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="Headers\Ball.h">
       <Filter>Header Files\GameObject\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Helpers.h">
+      <Filter>Header Files\Engine\Modules\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

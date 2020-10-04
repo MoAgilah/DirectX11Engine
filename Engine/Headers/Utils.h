@@ -4,11 +4,22 @@
 #ifndef Utils_H
 #define Utils_H
 
+///////////////////////////////
+// PRE-PROCESSING DIRECTIVES //
+///////////////////////////////
+#define WIN32_LEAN_AND_MEAN
+
+//////////////
+// INCLUDES //
+//////////////
+#include <windows.h>
+
 //////////////////
 // MY INCLUDES  //
 //////////////////
 #include <directxmath.h>
 using namespace DirectX;
+
 
 const int g_iNUM_LIGHTS = 4;
 

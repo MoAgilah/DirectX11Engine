@@ -12,6 +12,8 @@
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
+#include "../Headers/Helpers.h"
+
 #include "../Headers/Utils.h"
 #include "../Headers/Timer.h"
 #include "../Headers/Input.h"
@@ -45,7 +47,7 @@ private:
 	void UpdateScene(const float& deltaTime);
 	void DrawScene();
 
-	void InitWindows(int& screenWidth, int& screenHeight);
+	bool InitWindows(int& screenWidth, int& screenHeight);
 	void ShutdownWindows();
 
 private:
@@ -57,6 +59,10 @@ private:
 	bool m_IsResizing;
 	bool m_IsMinimised;
 	bool m_IsMaximised;
+
+	int m_FrameCnt;
+	float m_TimeElapsed;
+	float m_FrameTime;
 
 	//Modules
 	Timer m_Timer;
