@@ -28,6 +28,9 @@ using namespace std;
 #include "../Headers/SpriteMgr.h"
 #include "../Headers/ShaderMgr.h"
 
+#include "../Headers/Helpers.h"
+#include "../Headers/Utils.h"
+
 /////////////
 // GLOBALS //
 /////////////
@@ -44,7 +47,6 @@ class Graphics
 {
 public:
 	Graphics();
-	Graphics(const Graphics& other);
 	~Graphics();
 	bool Initialise(const int& screenWidth, const int& screenHeight, HWND* hwnd);
 	void Release();

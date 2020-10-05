@@ -24,18 +24,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: D2DMgr
 ////////////////////////////////////////////////////////////////////////////////
-__declspec(align(16)) class D2DMgr
+class D2DMgr
 {
 public:
 	D2DMgr();
-	D2DMgr(const D2DMgr& other);
 	~D2DMgr();
 	bool Initialise(D3DMgr* d3dptr, HWND hwnd);
 	void Release();
 	IDWriteFactory2* GetWriteFactory();
 	ID2D1DeviceContext1* GetDeviceContext();
-
-	void printFPS(HWND hwnd);
 
 	// brushes
 	ID2D1SolidColorBrush* m_pYellowBrush;

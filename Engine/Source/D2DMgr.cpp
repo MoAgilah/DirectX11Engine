@@ -4,49 +4,29 @@
 #include "../Headers/D2DMgr.h"
 
 D2DMgr::D2DMgr()
-{
-	m_pYellowBrush = nullptr;
-	m_pWhiteBrush = nullptr;
-	m_pBlackBrush = nullptr;
-
-	m_pTextFormatFPS = nullptr;
-	m_pTextLayoutFPS = nullptr;
-
-	m_pWriteFactory = nullptr;
-	m_pFactory = nullptr;
-	m_pDevice = nullptr;
-	m_pDeviceContext = nullptr;
-
-	m_D3Dptr = nullptr;
-}
-
-D2DMgr::D2DMgr(const D2DMgr& other)
-{
-}
+	:m_pYellowBrush(nullptr), m_pWhiteBrush(nullptr), m_pBlackBrush(nullptr),
+	m_pTextFormatFPS(nullptr), m_pTextLayoutFPS(nullptr), m_pTextTypography(nullptr),
+	m_pWriteFactory(nullptr), m_pFactory(nullptr), m_pDevice(nullptr), m_pDeviceContext(nullptr),
+	m_D3Dptr (nullptr)
+{}
 
 D2DMgr::~D2DMgr()
 {
+	Release();
 }
 
 bool D2DMgr::Initialise(D3DMgr* d3dptr, HWND hwnd)
 {
 	m_D3Dptr = d3dptr;
 
-	if (!CreateDevice(hwnd))
-	{
+	if (!fo_IfFailMsg(CreateDevice(hwnd),"Failed to create D2D Device"))
 		return false;
-	}
 
-	
-	if (!CreateBitmapRenderTarget(hwnd))
-	{
+	if (!fo_IfFailMsg(CreateBitmapRenderTarget(hwnd), "Failed to create D2D bitmap render target"))
 		return false;
-	}
 
-	if (!InitializeTextFormats(hwnd))
-	{
+	if (!fo_IfFailMsg(InitializeTextFormats(hwnd), "Failed to initialise text formats"))
 		return false;
-	}
 
 	return true;
 }
@@ -78,34 +58,10 @@ ID2D1DeviceContext1* D2DMgr::GetDeviceContext()
 	return m_pDeviceContext;
 }
 
-void D2DMgr::printFPS(HWND hwnd)
-{
-	if (true && m_pTextLayoutFPS)
-	{
-		m_pDeviceContext->BeginDraw();
-
-		/*m_pDeviceContext->SetTransform(D2D1::Matrix3x2F::Translation(100, 100));
-
-		m_pDeviceContext->DrawTextLayout(D2D1::Point2F(0.0f, 0.0f), m_pTextLayoutFPS, m_pYellowBrush);
-		if (FAILED(m_pDeviceContext->EndDraw()))
-			MessageBox(hwnd, "Critical error: Unable to draw FPS information!", "Error Msg", MB_OK);*/
-
-		m_pDeviceContext->SetTransform(D2D1::Matrix3x2F::Translation(100, 50));
-		
-		m_pDeviceContext->DrawTextLayout(D2D1::Point2F(0.0f, 0.0f), m_pTextLayoutFPS, m_pBlackBrush);
-		if (FAILED(m_pDeviceContext->EndDraw()))
-			MessageBox(hwnd, "Critical error: Unable to draw FPS information!", "Error Msg", MB_OK);
-	}
-}
-
 bool D2DMgr::CreateDevice(HWND hwnd)
 {
-	// create the DirectWrite factory
-	if (FAILED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown * *>(&m_pWriteFactory))))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the DirectWrite factory!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&m_pWriteFactory)), "Failed to create the DirectWrite factory!"))
 		return false;
-	}
 
 	// create the Direct2D factory
 	D2D1_FACTORY_OPTIONS options;
@@ -115,34 +71,22 @@ bool D2DMgr::CreateDevice(HWND hwnd)
 	options.debugLevel = D2D1_DEBUG_LEVEL_NONE;
 #endif
 	
-	if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, __uuidof(ID2D1Factory2), &options, reinterpret_cast<void**>(&m_pFactory))))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create Direct2D Factory!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, __uuidof(ID2D1Factory2), &options, reinterpret_cast<void**>(&m_pFactory)), "Failed to create Direct2D Factory!"))
 		return false;
-	}
 
 	// get the dxgi device
 	IDXGIDevice* dxgiDevice;
 
-	if (FAILED(m_D3Dptr->GetDevice()->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice))))
-	{
-		MessageBox(hwnd, "Critical error: Unable to get the DXGI device!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_D3Dptr->GetDevice()->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice)), "Failed to get the DXGI device!"))
 		return false;
-	}
 		
 	// create the Direct2D device
-	if (FAILED(m_pFactory->CreateDevice(dxgiDevice, &m_pDevice)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the Direct2D device!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_pFactory->CreateDevice(dxgiDevice, &m_pDevice), "Failed to create the Direct2D device!"))
 		return false;
-	}
 		
 	// create its context
-	if (FAILED(m_pDevice->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS, &m_pDeviceContext)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the Direct2D device context!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_pDevice->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS, &m_pDeviceContext), "Critical error: Unable to create the Direct2D device context!"))
 		return false;
-	}
 
 	return true;
 }
@@ -161,19 +105,13 @@ bool D2DMgr::CreateBitmapRenderTarget(HWND hwnd)
 	// Direct2D needs the DXGI version of the back buffer
 	IDXGISurface* dxgiBuffer;
 	
-	if (FAILED(m_D3Dptr->GetSwapChain()->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(&dxgiBuffer))))
-	{
-		MessageBox(hwnd, "Critical error: Unable to retrieve the back buffer!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_D3Dptr->GetSwapChain()->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(&dxgiBuffer)),"Failed to retrieve the back buffer!"))
 		return false;
-	}
 
 	// create the bitmap
 	ID2D1Bitmap1* targetBitmap;
-	if (FAILED(m_pDeviceContext->CreateBitmapFromDxgiSurface(dxgiBuffer, &bp, &targetBitmap)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the Direct2D bitmap from the DXGI surface!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_pDeviceContext->CreateBitmapFromDxgiSurface(dxgiBuffer, &bp, &targetBitmap), "Critical error: Unable to create the Direct2D bitmap from the DXGI surface!"))
 		return false;
-	}
 
 	// set the newly created bitmap as render target
 	m_pDeviceContext->SetTarget(targetBitmap);
@@ -186,40 +124,24 @@ bool D2DMgr::CreateBitmapRenderTarget(HWND hwnd)
 bool D2DMgr::InitializeTextFormats(HWND hwnd)
 {
 	// create standard brushes
-	if (FAILED(m_pDeviceContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Yellow), &m_pYellowBrush)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the yellow brush!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_pDeviceContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Yellow), &m_pYellowBrush), "Failed to create the yellow brush!"))
 		return false;
-	}
-	if (FAILED(m_pDeviceContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &m_pBlackBrush)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the black brush!", "Error Msg", MB_OK);
+	
+	if (!fo_IfFailMsg(m_pDeviceContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &m_pBlackBrush), "Failed to create the black brush!"))
 		return false;
-	}
-	if (FAILED(m_pDeviceContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &m_pWhiteBrush)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create the white brush!", "Error Msg", MB_OK);
+	
+	if (!fo_IfFailMsg(m_pDeviceContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &m_pWhiteBrush), "Failed to create the white brush!"))
 		return false;
-	}
 
 	// set up text formats
-
-	// FPS text
-	if (FAILED(m_pWriteFactory->CreateTextFormat(L"Lucida Console", nullptr, DWRITE_FONT_WEIGHT_LIGHT, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 12.0f, L"en-GB", &m_pTextFormatFPS)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to create text format for FPS information!", "Error Msg", MB_OK);
+	if (!fo_IfFailMsg(m_pWriteFactory->CreateTextFormat(L"Lucida Console", nullptr, DWRITE_FONT_WEIGHT_LIGHT, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 12.0f, L"en-GB", &m_pTextFormatFPS), "Failed to create text format for FPS information!"))
 		return false;
-	}
-	if (FAILED(m_pTextFormatFPS->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to set text alignment!", "Error Msg", MB_OK);
+	
+	if (!fo_IfFailMsg(m_pTextFormatFPS->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING), "Critical error: Unable to set text alignment!"))
 		return false;
-	}
-	if (FAILED(m_pTextFormatFPS->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR)))
-	{
-		MessageBox(hwnd, "Critical error: Unable to set paragraph alignment!", "Error Msg", MB_OK);
+	
+	if (!fo_IfFailMsg(m_pTextFormatFPS->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR), "Critical error: Unable to set paragraph alignment!"))
 		return false;
-	}
 
 	return true;
 }

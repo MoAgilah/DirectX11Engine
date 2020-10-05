@@ -32,7 +32,6 @@ class Framework
 {
 public:
 	Framework();
-	Framework(const Framework& other);
 	~Framework();
 
 	bool Initialise();

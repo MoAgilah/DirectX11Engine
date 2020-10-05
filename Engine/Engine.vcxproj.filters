@@ -372,9 +372,6 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>Source Files\Engine\Modules\Graphics\Debug\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Source\D2DMgr.cpp">
-      <Filter>Source Files\GameObject\3D\HiearchalAnim</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameObject3D.cpp">
       <Filter>Source Files\GameObject\3D</Filter>
     </ClCompile>
@@ -398,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="Source\Helper.cpp">
       <Filter>Source Files\Engine\Modules\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\D2DMgr.cpp">
+      <Filter>Source Files\Engine\Modules\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

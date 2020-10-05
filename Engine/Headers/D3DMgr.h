@@ -22,16 +22,16 @@ using namespace DirectX;
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
+#include "../Headers/Helpers.h"
 #include "../Headers/Utils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: D3DMgr
 ////////////////////////////////////////////////////////////////////////////////
-__declspec(align(16)) class D3DMgr
+class D3DMgr
 {
 public:	
 	D3DMgr();
-	D3DMgr(const D3DMgr&);
 	~D3DMgr();
 
 	bool Initialise(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,
@@ -56,9 +56,9 @@ public:
 	void EnableWireframe();
 	void DisableWireframe();
 private:
-	bool m_bVSyncEnabled;
-	int m_iVideoCardMemory;
-	char m_cVideoCardDescription[128];
+	bool m_VSyncEnabled;
+	int m_VideoCardMemory;
+	char m_VideoCardDescription[128];
 	IDXGISwapChain* m_pSwapChain;
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
@@ -70,9 +70,9 @@ private:
 	ID3D11RasterizerState* m_pRasterStateWireframe;
 	ID3D11DepthStencilState* m_pDepthDisabledStencilState;
 
-	XMMATRIX m_mProjMatrix;
-	XMMATRIX m_mWorldMatrix;
-	XMMATRIX m_mOrthoMatrix;
+	XMMATRIX m_ProjMatrix;
+	XMMATRIX m_WorldMatrix;
+	XMMATRIX m_OrthoMatrix;
 public:
 	void* operator new(size_t i)
 	{

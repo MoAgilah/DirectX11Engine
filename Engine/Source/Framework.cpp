@@ -5,7 +5,7 @@
 
 Framework::Framework()
 	:m_ApplicationName(nullptr),m_HInstance(nullptr),m_Hwnd(nullptr),
-	m_IsPaused(false), m_IsResizing(false), m_IsMinimised(false), m_IsMaximised(false), m_FrameCnt(0), m_TimeElapsed(0.0f),
+	m_IsPaused(false), m_IsResizing(false), m_IsMinimised(false), m_IsMaximised(false), m_FrameCnt(0), m_TimeElapsed(0.0f),m_FrameTime(0.f),
 	m_pInput(Input::GetInput()),m_pGraphics(new Graphics),m_pCollisionsMgr(nullptr),m_pStateManager(GameStateManager::GetStateMgr())
 {}
 
@@ -242,7 +242,7 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 			m_IsPaused = false;
 			m_IsResizing = false;
 			m_Timer.Start();
-			//OnResize();
+			m_pGraphics->GetD3DMgr()->OnResize(&m_Hwnd);
 		}
 		return 0;
 	

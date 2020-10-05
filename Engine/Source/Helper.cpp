@@ -12,16 +12,20 @@
 
 bool IfFailMsg::operator()(bool res, std::string errMsg)
 {
-	if (!res) MessageBox(0, errMsg.c_str(), 0, 0);
+	if (!res) MessageBox(0, errMsg.c_str(), "Error Msg", MB_OK);
 
 	return res;
 }
 
-template<typename T>
-void SafeDelete<T>::operator()(T t)
+bool IfFailMsg::operator()(HRESULT res, std::string errMsg)
 {
-	if (t)
-		delete t;
-	t = nullptr;
+	if (FAILED(res))
+	{
+		MessageBox(0, errMsg.c_str(), "Error Msg", MB_OK);
+		return false;
+	}
+	
+	return true;
 }
+
 

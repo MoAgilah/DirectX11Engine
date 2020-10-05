@@ -5,26 +5,14 @@
 
 
 Graphics::Graphics()
-{
-	m_pApplicationHandle = nullptr;
-	m_pD3DMgr = nullptr;
-	m_pD2DMgr = nullptr;
-	m_pCamera = nullptr;
-	
-}
-
-
-Graphics::Graphics(const Graphics& other)
-{
-	m_pApplicationHandle = other.m_pApplicationHandle;
-	m_pD2DMgr = other.m_pD2DMgr;
-	m_pD3DMgr = other.m_pD3DMgr;
-	m_pCamera = other.m_pCamera;
-}
-
+	:m_pApplicationHandle(nullptr), m_pD3DMgr(new D3DMgr), m_pD2DMgr(new D2DMgr), 
+	m_pCamera(nullptr), m_pTextMgr(nullptr), m_pTextureMgr(new TextureMgr), m_pShaderMgr(new ShaderMgr), m_pSpriteMgr(nullptr),
+	m_f2ScreenDimensions(XMFLOAT2(0.f,0.f))
+{}
 
 Graphics::~Graphics()
 {
+	Release();
 }
 
 bool Graphics::Initialise(const int& screenWidth, const int& screenHeight, HWND* hwnd)
@@ -32,37 +20,22 @@ bool Graphics::Initialise(const int& screenWidth, const int& screenHeight, HWND*
 	m_pApplicationHandle = hwnd;
 	bool result;
 
-	// Create the Direct3D object.
-	m_pD3DMgr = new D3DMgr;
-	if (!m_pD3DMgr) return false; 
-
-	// Initialize the Direct3D object.
-	result = m_pD3DMgr->Initialise(screenWidth, screenHeight, g_bVSYNC_ENABLED, *m_pApplicationHandle, g_bFULL_SCREEN, g_fSCREEN_DEPTH, g_fSCREEN_NEAR);
-	if (!result)
-	{
-		MessageBox(*m_pApplicationHandle, "Could not initialize Direct3D", "Error", MB_OK);
+	assert(m_pD3DMgr != nullptr);
+	
+	if (!fo_IfFailMsg(m_pD3DMgr->Initialise(screenWidth, screenHeight, g_bVSYNC_ENABLED, *m_pApplicationHandle, g_bFULL_SCREEN, g_fSCREEN_DEPTH, g_fSCREEN_NEAR), "Could not initialize Direct3D"))
 		return false;
-	}
 
 	m_f2ScreenDimensions = XMFLOAT2((float)screenWidth, (float)screenHeight);
 
 	m_pCamera = new Camera(screenWidth, screenHeight, g_fSCREEN_DEPTH, g_fSCREEN_NEAR);
-	if (!m_pCamera) return false;
-
+	
+	assert(m_pCamera != nullptr);
 	m_pCamera->SetPosition(XMFLOAT3(75.0f, 2.0f, 35.0f));
 
-	m_pD2DMgr = new D2DMgr;
-	if (!m_pD2DMgr)
-	{
-		return false;
-	}
+	assert(m_pD2DMgr != nullptr);
 
-	result = m_pD2DMgr->Initialise(m_pD3DMgr, *m_pApplicationHandle);
-	if (!result)
-	{
-		MessageBox(*m_pApplicationHandle, "Could not initialize Direct2D", "Error", MB_OK);
+	if (!fo_IfFailMsg(m_pD2DMgr->Initialise(m_pD3DMgr, *m_pApplicationHandle),"Could not initialize Direct2D"))
 		return false;
-	}
 
 	m_pTextMgr = new TextMgr(m_pD2DMgr);
 	if (!m_pTextMgr)
@@ -71,21 +44,11 @@ bool Graphics::Initialise(const int& screenWidth, const int& screenHeight, HWND*
 		return false;
 	}
 
-	m_pTextureMgr = new TextureMgr;
-	if (!m_pTextureMgr)
-	{
-		MessageBox(*m_pApplicationHandle, "Could not initialize Texture Mgr", "Error", MB_OK);
-		return false;
-	}
+	assert(m_pTextureMgr != nullptr);
+	assert(m_pShaderMgr != nullptr);
 
-	m_pShaderMgr = new ShaderMgr;
-	if (!m_pShaderMgr) return false;
-
-	if (!m_pShaderMgr->InitializeShaders(m_pD3DMgr->GetDevice(), *hwnd))
-	{
-		MessageBox(*m_pApplicationHandle, "Could not initialize Shaders", "Error", MB_OK);
+	if (!fo_IfFailMsg(m_pShaderMgr->InitializeShaders(m_pD3DMgr->GetDevice(), *hwnd), "Could not initialize Shader Managers"))
 		return false;
-	}
 
 	m_pSpriteMgr = new SpriteMgr(m_pD3DMgr);
 	if (!m_pSpriteMgr)
