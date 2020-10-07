@@ -1,8 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename: Input.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef _Input_H_
-#define _Input_H_
+#ifndef Input_H_
+#define Input_H_
+
+#include <memory>
 
 ///////////////////////
 // MY CLASS INCLUDES //
@@ -17,18 +19,16 @@
 class Input
 {
 public:
-	Input();
 	~Input();
-	void Release();
-
 	Keyboard* GetKeyboard();
 	Mouse* GetMouse();
 	static Input* GetInput();
 private:
-
+	Input();
+	
 	static Input* s_pInstance;
-	Keyboard* m_pKeyboard;
-	Mouse* m_pMouse;
+	std::unique_ptr<Keyboard> m_pKeyboard;
+	std::unique_ptr<Mouse> m_pMouse;
 };
 
 #endif

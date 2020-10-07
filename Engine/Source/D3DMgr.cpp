@@ -5,11 +5,10 @@
 
 
 D3DMgr::D3DMgr()
-	:m_VSyncEnabled(false), m_VideoCardMemory(0), m_VideoCardDescription(""),
-	m_pSwapChain(nullptr), m_pDevice(nullptr), m_pDeviceContext(nullptr), m_pRenderTargetView(nullptr),
-	m_pDepthStencilBuffer(nullptr), m_pDepthStencilState(nullptr), m_pDepthStencilView(nullptr), m_pRasterState(nullptr),
-	m_pRasterStateWireframe(nullptr), m_pDepthDisabledStencilState(nullptr),
-	m_ProjMatrix(XMMatrixIdentity()), m_OrthoMatrix(XMMatrixIdentity()), m_WorldMatrix(XMMatrixIdentity())
+	:m_VSyncEnabled(false), m_VideoCardMemory(0), m_VideoCardDescription(""),m_pSwapChain(nullptr), 
+	m_pDevice(nullptr), m_pDeviceContext(nullptr), m_pRenderTargetView(nullptr), m_pDepthStencilBuffer(nullptr), 
+	m_pDepthStencilState(nullptr), m_pDepthStencilView(nullptr), m_pRasterState(nullptr), m_pRasterStateWireframe(nullptr), 
+	m_pDepthDisabledStencilState(nullptr), m_ProjMatrix(XMMatrixIdentity()), m_OrthoMatrix(XMMatrixIdentity()), m_WorldMatrix(XMMatrixIdentity())
 {}
 
 
@@ -18,8 +17,8 @@ D3DMgr::~D3DMgr()
 	Release();
 }
 
-bool D3DMgr::Initialise(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,
-	float screenDepth, float screenNear)
+bool D3DMgr::Initialise(const int& screenWidth, const int& screenHeight, const bool& vsync, const HWND& hwnd, const bool& fullscreen,
+	const float& screenDepth, const float& screenNear)
 {
 	HRESULT result;
 	IDXGIFactory* factory;
@@ -292,10 +291,9 @@ void D3DMgr::Release()
 	SAFE_RELEASE(m_pRenderTargetView);
 	SAFE_RELEASE(m_pDeviceContext);
 	SAFE_RELEASE(m_pDevice);
-	SAFE_RELEASE(m_pSwapChain);
 }
 
-void D3DMgr::BeginScene(float red, float green, float blue, float alpha)
+void D3DMgr::BeginScene(const float& red, const float& green, const float& blue, const float& alpha)
 {
 	float color[4]{ red,green,blue,alpha };
 
@@ -324,7 +322,7 @@ ID3D11Device* D3DMgr::GetDevice()
 
 IDXGISwapChain* D3DMgr::GetSwapChain()
 { 
-	return m_pSwapChain; 
+	return m_pSwapChain.Get(); 
 }
 
 ID3D11DeviceContext* D3DMgr::GetDeviceContext()
@@ -384,9 +382,9 @@ bool D3DMgr::OnResize(HWND* appHwnd)
 	if (!fo_IfFailMsg(m_pSwapChain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0), "Failed to resize the swap chain on resize"))
 		return false;
 
-	ID3D11Texture2D* backbuffer;
+	ID3D11Texture2D* backbuffer = nullptr;
 	
-	if (!fo_IfFailMsg(m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)& backbuffer), "Failed to get back buffer on resize"))
+	if (!fo_IfFailMsg(m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&backbuffer)), "Failed to get back buffer on resize"))
 		return false;
 	
 	if (!fo_IfFailMsg(m_pDevice->CreateRenderTargetView(backbuffer, NULL, &m_pRenderTargetView), "Failed to create render target view on resize"))

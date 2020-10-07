@@ -11,31 +11,22 @@ Input::Input()
 
 Input::~Input()
 {
-	Release();
-}
-
-void Input::Release()
-{
-	SAFE_DELETE(m_pMouse);
-	SAFE_DELETE(m_pKeyboard);
 }
 
 Keyboard* Input::GetKeyboard()
 {
-	return m_pKeyboard;
+	return m_pKeyboard.get();
 }
 
 Mouse* Input::GetMouse()
 {
-	return m_pMouse;
+	return m_pMouse.get();
 }
 
 Input* Input::GetInput()
 {
 	if (!s_pInstance)
-	{
 		s_pInstance = new Input;
-	}
 
 	return s_pInstance;
 }

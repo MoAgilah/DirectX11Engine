@@ -144,7 +144,7 @@ ID3D11ShaderResourceView* Texture::GetTextureShaderResourceView()
 bool Texture::LoadTarga(char* filename, int& height, int& width)
 {
 	int error, bpp, imageSize, index, i, j, k;
-	FILE* filePtr;
+	FILE* filePtr = nullptr;
 	unsigned int count;
 	TargaHeader targaFileHeader;
 	unsigned char* targaImage;

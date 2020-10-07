@@ -21,17 +21,16 @@ class Mouse
 {
 public:
 	Mouse();
-	~Mouse();
 
-	void OnLeftPressed(int x, int y);
-	void OnLeftReleased(int x, int y);
-	void OnRightPressed(int x, int y);
-	void OnRightReleased(int x, int y);
-	void OnMiddlePressed(int x, int y);
-	void OnMiddleReleased(int x, int y);
-	void OnWheelUp(int x, int y);
-	void OnWheelDown(int x, int y);
-	void OnMouseMove(int x, int y);
+	void OnLeftPressed(const int& x, const int& y);
+	void OnLeftReleased(const int& x, const int& y);
+	void OnRightPressed(const int& x, const int& y);
+	void OnRightReleased(const int& x, const int& y);
+	void OnMiddlePressed(const int& x, const int& y);
+	void OnMiddleReleased(const int& x, const int& y);
+	void OnWheelUp(const int& x, const int& y);
+	void OnWheelDown(const int& x, const int& y);
+	void OnMouseMove(const int& x, const int& y);
 
 	bool IsLeftDown() const;
 	bool IsMiddleDown() const;

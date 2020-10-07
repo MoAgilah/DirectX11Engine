@@ -20,7 +20,7 @@ class GameState
 {
 public:
 	GameState()
-		:m_pGraphics(nullptr), m_pInput(nullptr), m_pTimer(nullptr), m_pCollisions(nullptr),m_sStateName("")
+		:m_pGraphics(nullptr), m_pTimer(nullptr), m_pCollisions(nullptr),m_sStateName("")
 	{}
 
 	virtual bool Initialise() = 0;

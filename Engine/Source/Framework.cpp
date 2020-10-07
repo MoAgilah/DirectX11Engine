@@ -16,17 +16,15 @@ Framework::~Framework()
 
 bool Framework::Initialise()
 {
-	int screenWidth(0), screenHeight(0);
-
 	// Initialize the windows api.
-	if (!fo_IfFailMsg(InitWindows(screenWidth, screenHeight), "Failed to Initialise Window")) return false;
+	if (!fo_IfFailMsg(InitWindows(gs_SystPref.gf_ScreenWidth, gs_SystPref.gf_ScreenHeight), "Failed to Initialise Window")) return false;
 
 	// Initialize the graphics module.
 	assert(m_pGraphics != nullptr);	
-	if (!fo_IfFailMsg(m_pGraphics->Initialise(screenWidth, screenHeight, &m_Hwnd), "Failed to initialise graphics module")) return false;
-
+	if (!fo_IfFailMsg(m_pGraphics->Initialise(gs_SystPref.gf_ScreenWidth, gs_SystPref.gf_ScreenHeight, &m_Hwnd), "Failed to initialise graphics module")) return false;
+	
 	// Initialise the collision module 
-	m_pCollisionsMgr = new CollisionMgr(m_pGraphics);
+	m_pCollisionsMgr.reset(new CollisionMgr(m_pGraphics.get()));
 	assert(m_pCollisionsMgr != nullptr);
 
 	//setup ImGui--------------temp
@@ -38,7 +36,7 @@ bool Framework::Initialise()
 	ImGui::StyleColorsDark();
 	//------------------------------
 
-	m_pStateManager->ChangeState(new BlankState(m_pGraphics, m_pCollisionsMgr, m_pInput, &m_Timer, "Hierarchy State"));
+	m_pStateManager->ChangeState(new DemoState2D(m_pGraphics.get(), m_pCollisionsMgr.get(), &m_Timer, "Hierarchy State"));
 
 	return true;
 }
@@ -46,17 +44,11 @@ bool Framework::Initialise()
 
 void Framework::Release()
 {
-	SAFE_RELEASE(m_pStateManager);
-
-	// Shutdown
+	//Shutdown ImGui
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
-	SAFE_RELEASE(m_pGraphics);
-	SAFE_RELEASE(m_pInput);
-
-	// Shutdown the window.
 	ShutdownWindows();
 }
 
@@ -99,8 +91,6 @@ void Framework::Run()
 			}
 		}
 	}
-
-	return;
 }
 
 LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
@@ -112,17 +102,13 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 		{
 			// If a key is pressed send it to the input object so it can record that state.
 			if (m_pInput->GetKeyboard()->IsKeysAutoRepeat())
-			{
 				m_pInput->GetKeyboard()->OnKeyPressed(static_cast<unsigned char>(wparam));
-			}
 			else
 			{
 				const bool wasPressed = lparam & 0x40000000;
 
 				if (!wasPressed)
-				{
 					m_pInput->GetKeyboard()->OnKeyPressed(static_cast<unsigned char>(wparam));
-				}
 			}
 		}
 		return 0;
@@ -138,16 +124,12 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 		case WM_CHAR:
 		{
 			if (m_pInput->GetKeyboard()->IsCharsAutoRepeat())
-			{
 				m_pInput->GetKeyboard()->OnChar(static_cast<unsigned char>(wparam));
-			}
 			else
 			{
 				const bool wasPressed = lparam & 0x40000000;
 				if (!wasPressed)
-				{
 					m_pInput->GetKeyboard()->OnChar(static_cast<unsigned char>(wparam));
-				}
 			}
 		}
 		return 0;
@@ -218,13 +200,9 @@ LRESULT CALLBACK Framework::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, 
 			int x = LOWORD(lparam);
 			int y = HIWORD(lparam);
 			if (GET_WHEEL_DELTA_WPARAM(wparam) > 0)
-			{
 				m_pInput->GetMouse()->OnWheelUp(x, y);
-			}
 			else if (GET_WHEEL_DELTA_WPARAM(wparam) < 0)
-			{
 				m_pInput->GetMouse()->OnWheelDown(x, y);
-			}
 		}
 		return 0;
 	
@@ -391,7 +369,7 @@ bool Framework::InitWindows(int& screenWidth, int& screenHeight)
 	m_HInstance = GetModuleHandle(NULL);
 
 	// Give the application a name.
-	m_ApplicationName = "Engine";
+	m_ApplicationName = gs_SystPref.gs_AppName.c_str();
 
 	// Setup the windows class with default settings.
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -415,7 +393,7 @@ bool Framework::InitWindows(int& screenWidth, int& screenHeight)
 	screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
 	// Setup the screen settings depending on whether it is running in full screen or in windowed mode.
-	if (g_bFULL_SCREEN)
+	if (gs_SystPref.gb_FullScreen)
 	{
 		// If full screen set the screen to maximum size of the users desktop and 32bit.
 		memset(&dmScreenSettings, 0, sizeof(dmScreenSettings));
@@ -443,7 +421,7 @@ bool Framework::InitWindows(int& screenWidth, int& screenHeight)
 	}
 
 	int style;
-	if (g_bBORDERED)
+	if (gs_SystPref.gb_Bordered)
 	{
 		style = WS_OVERLAPPED | WS_SYSMENU | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX;
 	}
@@ -477,10 +455,8 @@ void Framework::ShutdownWindows()
 	ShowCursor(true);
 
 	// Fix the display settings if leaving full screen mode.
-	if (g_bFULL_SCREEN)
-	{
+	if (gs_SystPref.gb_FullScreen)
 		ChangeDisplaySettings(NULL, 0);
-	}
 
 	// Remove the window.
 	DestroyWindow(m_Hwnd);
@@ -492,8 +468,6 @@ void Framework::ShutdownWindows()
 
 	// Release the pointer to this class.
 	gs_pApplicationHandle = NULL;
-
-	return;
 }
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -506,25 +480,25 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 	switch (umessage)
 	{
 		// Check if the window is being destroyed.
-	case WM_DESTROY:
+		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
 		}
 		return 0;
 
-	// Check if the window is being closed.
-	case WM_CLOSE:
+		// Check if the window is being closed.
+		case WM_CLOSE:
 		{
 			PostQuitMessage(0);
 		}
 		return 0;
 
-	// All other messages pass to the message handler in the system class.
-	default:
+		// All other messages pass to the message handler in the system class.
+		default:
 		{
 			return gs_pApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);
 		}
 	}
 
-	return gs_pApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);
+	return true;
 }

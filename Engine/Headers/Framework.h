@@ -12,18 +12,17 @@
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "../Headers/Helpers.h"
-
-#include "../Headers/Utils.h"
-#include "../Headers/Timer.h"
 #include "../Headers/Input.h"
 #include "../Headers/Graphics.h"
 #include "../Headers/CollisionMgr.h"
 
+#include "../Headers/Timer.h"
+#include "../Headers/Helpers.h"
+
 #include "../Headers/StateMgr.h"
 #include "../Headers/DebugState.h"
-#include "../Headers/BlankState.h"
-#include "../Headers/HierarchyState.h"
+#include "../Headers/DemoState3D.h"
+#include "../Headers/DemoState2D.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: Framework
@@ -65,10 +64,10 @@ private:
 
 	//Modules
 	Timer m_Timer;
-	Input* m_pInput;
-	Graphics* m_pGraphics;
-	CollisionMgr* m_pCollisionsMgr;
-	GameStateManager* m_pStateManager;
+	unique_ptr<Input> m_pInput;
+	unique_ptr<Graphics> m_pGraphics;
+	unique_ptr<CollisionMgr> m_pCollisionsMgr;
+	unique_ptr<GameStateManager> m_pStateManager;
 };
 
 /////////////////////////

@@ -28,11 +28,6 @@ const int g_iNUM_LIGHTS = 4;
 #define SAFE_DELETEA(a) { if( (a) != NULL ) { delete[] (a); (a) = nullptr; } }
 #define SAFE_DELETEV(a){ if (!a.empty()) { int l = (int)a.size(); for (int i = 0; i < l; i++) SAFE_DELETE(a[i]); } }
 
-enum TexType
-{
-	WIC,DDS,Targa
-};
-
 struct VertexTypeCol
 {
 	XMFLOAT3 position;

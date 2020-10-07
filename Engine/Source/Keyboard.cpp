@@ -10,11 +10,7 @@ Keyboard::Keyboard()
 		m_KeyStates[i] = false; //Initialize all key states to off (false)
 }
 
-Keyboard::~Keyboard()
-{
-}
-
-bool Keyboard::KeyIsPressed(const unsigned char keycode)
+bool Keyboard::KeyIsPressed(const unsigned char& keycode)
 {
 	return m_KeyStates[keycode];
 }
@@ -57,19 +53,19 @@ unsigned char Keyboard::ReadChar()
 	}
 }
 
-void Keyboard::OnKeyPressed(const unsigned char key)
+void Keyboard::OnKeyPressed(const unsigned char& key)
 {
 	m_KeyStates[key] = true;
 	mq_KeyBuffer.push(KeyboardEvent(KeyboardEvent::KEventType::Press, key));
 }
 
-void Keyboard::OnKeyReleased(const unsigned char key)
+void Keyboard::OnKeyReleased(const unsigned char& key)
 {
 	m_KeyStates[key] = false;
 	mq_KeyBuffer.push(KeyboardEvent(KeyboardEvent::KEventType::Release, key));
 }
 
-void Keyboard::OnChar(const unsigned char key)
+void Keyboard::OnChar(const unsigned char& key)
 {
 	mq_CharBuffer.push(key);
 }

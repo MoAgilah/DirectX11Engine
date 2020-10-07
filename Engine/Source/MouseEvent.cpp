@@ -7,7 +7,7 @@ MouseEvent::MouseEvent()
 	: m_MEventType(MEventType::Invalid), m_XPos(0), m_YPos(0)
 {}
 
-MouseEvent::MouseEvent(MEventType type, int x, int y)
+MouseEvent::MouseEvent(const MEventType& type, const int& x, const int& y)
 	:m_MEventType(type), m_XPos(x), m_YPos(y)
 {}
 

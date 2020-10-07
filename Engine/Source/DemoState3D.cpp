@@ -1,10 +1,9 @@
-#include "../Headers/HierarchyState.h"
+#include "../Headers/DemoState3D.h"
 
-HierarchyState::HierarchyState(Graphics* graphics, CollisionMgr* collisions, Input* input, Timer* timer, string stateName)
+DemoState3D::DemoState3D(Graphics* graphics, CollisionMgr* collisions, Timer* timer, string stateName)
 {
 	m_pGraphics = graphics;
 	m_pCollisions = collisions;
-	m_pInput = input;
 	m_pTimer = timer;
 	m_sStateName = stateName;
 	m_pTimer->Reset();
@@ -23,7 +22,7 @@ HierarchyState::HierarchyState(Graphics* graphics, CollisionMgr* collisions, Inp
 	m_iCameraState = CameraState::PLANE;
 }
 
-bool HierarchyState::Initialise()
+bool DemoState3D::Initialise()
 {
 	bool result = false;
 
@@ -132,7 +131,7 @@ bool HierarchyState::Initialise()
 	return true;
 }
 
-void HierarchyState::Release()
+void DemoState3D::Release()
 {
 	SAFE_DELETE(m_pRobot);
 	SAFE_DELETE(m_pPlane);
@@ -143,17 +142,17 @@ void HierarchyState::Release()
 	SAFE_DELETE(m_pLight[3]);
 }
 
-void HierarchyState::Pause()
+void DemoState3D::Pause()
 {
 	m_pTimer->Stop();
 }
 
-void HierarchyState::Resume()
+void DemoState3D::Resume()
 {
 	m_pTimer->Start();
 }
 
-void HierarchyState::ProcessInputs()
+void DemoState3D::ProcessInputs()
 {
 	static bool keystates[2] = { false,false };
 
@@ -192,7 +191,7 @@ void HierarchyState::ProcessInputs()
 	}
 }
 
-void HierarchyState::Update(const float& deltaTime)
+void DemoState3D::Update(const float& deltaTime)
 {
 	
 	UpdateCameraState();
@@ -276,7 +275,7 @@ void HierarchyState::Update(const float& deltaTime)
 	ProcessInputs();
 }
 
-void HierarchyState::Draw()
+void DemoState3D::Draw()
 {
 	// Clear the buffers to begin the scene.
 	m_pGraphics->GetD3DMgr()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
@@ -312,7 +311,7 @@ void HierarchyState::Draw()
 	m_pGraphics->GetD3DMgr()->EndScene();
 }
 
-string HierarchyState::GetCameraStateName()
+string DemoState3D::GetCameraStateName()
 {
 	switch (m_iCameraState)
 	{
@@ -334,7 +333,7 @@ string HierarchyState::GetCameraStateName()
 	}
 }
 
-void HierarchyState::UpdateCameraState()
+void DemoState3D::UpdateCameraState()
 {
 	XMFLOAT3 pos, foc;
 

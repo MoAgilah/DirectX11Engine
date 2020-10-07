@@ -34,7 +34,7 @@ public:
 public:
 	
 	MouseEvent();
-	MouseEvent(const MEventType type, const int x, const int y);
+	MouseEvent(const MEventType& type, const int& x, const int& y);
 	~MouseEvent();
 	
 	bool IsValid() const;

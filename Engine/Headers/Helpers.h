@@ -11,6 +11,20 @@
 //////////////
 #include <windows.h>
 #include <string>
+#include <vector>
+
+struct SystemPreferences
+{
+	std::string gs_AppName = "DirectX11";
+	bool gb_FullScreen = false;
+	bool gb_Bordered = true;
+	bool g_bVsyncEnabled = true;
+	int gf_ScreenWidth = 800.f;
+	int gf_ScreenHeight = 600.f;
+	float gf_ScreenDepth = 1000.f;
+	float gf_ScreenNear = 0.1f;
+};
+static SystemPreferences gs_SystPref;
 
 struct IfFailMsg
 {
@@ -19,7 +33,4 @@ struct IfFailMsg
 };
 static IfFailMsg fo_IfFailMsg;
 
-
 #endif
-
-

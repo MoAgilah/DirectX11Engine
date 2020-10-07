@@ -19,7 +19,7 @@ public:
 
 public:
 	KeyboardEvent();
-	KeyboardEvent(const KEventType type, const unsigned char key);
+	KeyboardEvent(const KEventType& type, const unsigned char& key);
 	~KeyboardEvent();
 
 	bool IsPressed() const;

@@ -8,57 +8,54 @@ Mouse::Mouse()
 	m_iXPos(0),m_iYPos(0)
 {}
 
-Mouse::~Mouse()
-{}
-
-void Mouse::OnLeftPressed(int x, int y)
+void Mouse::OnLeftPressed(const int& x, const int& y)
 {
 	m_bLeftIsDown = true;
 	MouseEvent me(MouseEvent::MEventType::LPress, x, y);
 	m_qMEventBuffer.push(me);
 }
 
-void Mouse::OnLeftReleased(int x, int y)
+void Mouse::OnLeftReleased(const int& x, const int& y)
 {
 	m_bLeftIsDown = false;
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::LRelease, x, y));
 }
 
-void Mouse::OnRightPressed(int x, int y)
+void Mouse::OnRightPressed(const int& x, const int& y)
 {
 	m_bRightIsDown = true;
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::RPress, x, y));
 }
 
-void Mouse::OnRightReleased(int x, int y)
+void Mouse::OnRightReleased(const int& x, const int& y)
 {
 	m_bRightIsDown = false;
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::RRelease, x, y));
 }
 
-void Mouse::OnMiddlePressed(int x, int y)
+void Mouse::OnMiddlePressed(const int& x, const int& y)
 {
 	m_bMiddleIsDown = true;
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::MPress, x, y));
 }
 
-void Mouse::OnMiddleReleased(int x, int y)
+void Mouse::OnMiddleReleased(const int& x, const int& y)
 {
 	m_bMiddleIsDown = false;
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::MRelease, x, y));
 }
 
-void Mouse::OnWheelUp(int x, int y)
+void Mouse::OnWheelUp(const int& x, const int& y)
 {
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::WheelUp, x, y));
 }
 
-void Mouse::OnWheelDown(int x, int y)
+void Mouse::OnWheelDown(const int& x, const int& y)
 {
 	m_qMEventBuffer.push(MouseEvent(MouseEvent::MEventType::WheelDown, x, y));
 }
 
-void Mouse::OnMouseMove(int x, int y)
+void Mouse::OnMouseMove(const int& x, const int& y)
 {
 	m_iXPos = x;
 	m_iYPos = y;

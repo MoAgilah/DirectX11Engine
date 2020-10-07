@@ -1,24 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: BlankState.cpp
+// Filename: DemoState2D.cpp
 ////////////////////////////////////////////////////////////////////////////////
-#include "..\Headers\BlankState.h"
-
+#include "..\Headers\DemoState2D.h"
 
 #include <algorithm>
 using namespace std;
 
-
-BlankState::BlankState(Graphics* graphics, CollisionMgr* collisions, Input* input, Timer* timer, string stateName)
+DemoState2D::DemoState2D(Graphics* graphics, CollisionMgr* collisions, Timer* timer, string stateName)
 {
 	m_pGraphics = graphics;
 	m_pCollisions = collisions;
-	m_pInput = input;
 	m_pTimer = timer;
 	m_sStateName = stateName;
 	m_pTimer->Reset();
 }
 
-bool BlankState::Initialise()
+bool DemoState2D::Initialise()
 {
 	bool res = false;
 
@@ -28,22 +25,22 @@ bool BlankState::Initialise()
 	//load textures here using texture manager in advance
 	m_pGraphics->GetTextureMgr()->Load(m_pGraphics->GetD3DMgr()->GetDevice(), m_pGraphics->GetD3DMgr()->GetDeviceContext(), (char*)"Resources/Images/paddle.png", TexType::WIC);
 	m_pGraphics->GetTextureMgr()->Load(m_pGraphics->GetD3DMgr()->GetDevice(), m_pGraphics->GetD3DMgr()->GetDeviceContext(), (char*)"Resources/Images/ball1.png", TexType::WIC);
-	
-	m_pPaddles[0] = new Paddle(m_pGraphics->GetSpriteMgr()->GetSprite(), m_pCollisions->Add2DBoundingCapsule(), m_pGraphics->GetScreenDimensions(),0,false);
+
+	m_pPaddles[0] = new Paddle(m_pGraphics->GetSpriteMgr()->GetSprite(), m_pCollisions->Add2DBoundingCapsule(), XMFLOAT2(gs_SystPref.gf_ScreenWidth, gs_SystPref.gf_ScreenHeight),0,false);
 	res = m_pPaddles[0]->InitialiseSprite(m_pGraphics->GetD3DMgr(), m_pGraphics->GetTextureMgr()->GetTexture("paddle"));
 	if (!res)
 	{
 		//error msg
 	}
 
-	m_pPaddles[1] = new Paddle(m_pGraphics->GetSpriteMgr()->GetSprite(), m_pCollisions->Add2DBoundingCapsule(), m_pGraphics->GetScreenDimensions(),1,false);
+	m_pPaddles[1] = new Paddle(m_pGraphics->GetSpriteMgr()->GetSprite(), m_pCollisions->Add2DBoundingCapsule(), XMFLOAT2(gs_SystPref.gf_ScreenWidth, gs_SystPref.gf_ScreenHeight),1,false);
 	res = m_pPaddles[1]->InitialiseSprite(m_pGraphics->GetD3DMgr(), m_pGraphics->GetTextureMgr()->GetTexture("paddle"));
 	if (!res)
 	{
 		//error msg
 	}
 
-	m_pBall = new Ball(m_pGraphics->GetSpriteMgr()->GetSprite(), m_pCollisions->Add2DBoundingSphere(), m_pGraphics->GetScreenDimensions(), 0, false);
+	m_pBall = new Ball(m_pGraphics->GetSpriteMgr()->GetSprite(), m_pCollisions->Add2DBoundingSphere(), XMFLOAT2(gs_SystPref.gf_ScreenWidth, gs_SystPref.gf_ScreenHeight), 0, false);
 	res = m_pBall->InitialiseSprite(m_pGraphics->GetD3DMgr(), m_pGraphics->GetTextureMgr()->GetTexture("ball1"));
 	if (!res)
 	{
@@ -53,29 +50,29 @@ bool BlankState::Initialise()
 	return true;
 }
 
-void BlankState::Release()
+void DemoState2D::Release()
 {
 	SAFE_DELETE(m_pPaddles[0]);
 	SAFE_DELETE(m_pPaddles[1]);
 	SAFE_DELETE(m_pBall);
 }
 
-void BlankState::Pause()
+void DemoState2D::Pause()
 {
 	m_pTimer->Stop();
 }
 
-void BlankState::Resume()
+void DemoState2D::Resume()
 {
 	m_pTimer->Start();
 }
 
-void BlankState::ProcessInputs()
+void DemoState2D::ProcessInputs()
 {
 	
 }
 
-void BlankState::Update(const float& deltaTime)
+void DemoState2D::Update(const float& deltaTime)
 {
 	m_pGraphics->GetCamera()->Update();
 
@@ -111,7 +108,7 @@ void BlankState::Update(const float& deltaTime)
 	ProcessInputs();
 }
 
-void BlankState::Draw()
+void DemoState2D::Draw()
 {
 	// Clear the buffers to begin the scene.
 	m_pGraphics->GetD3DMgr()->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);

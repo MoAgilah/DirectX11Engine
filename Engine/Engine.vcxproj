@@ -172,7 +172,7 @@
     <ClCompile Include="Source\AnimationController.cpp" />
     <ClCompile Include="Source\AnimationParser.cpp" />
     <ClCompile Include="Source\Ball.cpp" />
-    <ClCompile Include="Source\BlankState.cpp" />
+    <ClCompile Include="Source\DemoState2D.cpp" />
     <ClCompile Include="Source\BoundingCapsule.cpp" />
     <ClCompile Include="Source\BoundingSphere.cpp" />
     <ClCompile Include="Source\Bullet.cpp" />
@@ -190,7 +190,7 @@
     <ClCompile Include="Source\Graphics.cpp" />
     <ClCompile Include="Source\Helper.cpp" />
     <ClCompile Include="Source\Hiearchal3DObj.cpp" />
-    <ClCompile Include="Source\HierarchyState.cpp" />
+    <ClCompile Include="Source\DemoState3D.cpp" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Keyboard.cpp" />
     <ClCompile Include="Source\KeyboardEvent.cpp" />
@@ -244,7 +244,7 @@
     <ClInclude Include="Headers\AnimationController.h" />
     <ClInclude Include="Headers\AnimationParser.h" />
     <ClInclude Include="Headers\Ball.h" />
-    <ClInclude Include="Headers\BlankState.h" />
+    <ClInclude Include="Headers\DemoState2D.h" />
     <ClInclude Include="Headers\BoundingCapsule.h" />
     <ClInclude Include="Headers\BoundingSphere.h" />
     <ClInclude Include="Headers\BoundingVolume.h" />
@@ -264,7 +264,7 @@
     <ClInclude Include="Headers\Graphics.h" />
     <ClInclude Include="Headers\Helpers.h" />
     <ClInclude Include="Headers\Hierarchal3DObj.h" />
-    <ClInclude Include="Headers\HierarchyState.h" />
+    <ClInclude Include="Headers\DemoState3D.h" />
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\KeyboardEvent.h" />

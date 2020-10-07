@@ -14,6 +14,7 @@
 //////////////
 // INCLUDES //
 //////////////
+#include <memory>
 #include <string>
 using namespace std;
 
@@ -30,15 +31,6 @@ using namespace std;
 
 #include "../Headers/Helpers.h"
 #include "../Headers/Utils.h"
-
-/////////////
-// GLOBALS //
-/////////////
-const bool g_bFULL_SCREEN = false;
-const bool g_bBORDERED = true;
-const bool g_bVSYNC_ENABLED = true;
-const float g_fSCREEN_DEPTH = 1000.0f;
-const float g_fSCREEN_NEAR = 0.1f;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: Graphics
@@ -60,16 +52,16 @@ public:
 	HWND* GetApplicationHandle();
 	const XMFLOAT2& GetScreenDimensions();
 private:
-	HWND* m_pApplicationHandle;
-	D3DMgr* m_pD3DMgr;
-	D2DMgr* m_pD2DMgr;
-	TextureMgr* m_pTextureMgr;
-	ShaderMgr* m_pShaderMgr;
-	SpriteMgr* m_pSpriteMgr;
-	TextMgr* m_pTextMgr;
-	Camera* m_pCamera;
+
 	XMFLOAT2 m_f2ScreenDimensions;
-	
+	HWND* m_pApplicationHandle;
+	std::unique_ptr<D3DMgr> m_pD3DMgr;
+	std::unique_ptr<D2DMgr> m_pD2DMgr;
+	std::unique_ptr<TextureMgr> m_pTextureMgr;
+	std::unique_ptr<ShaderMgr> m_pShaderMgr;
+	std::unique_ptr<SpriteMgr> m_pSpriteMgr;
+	std::unique_ptr<TextMgr> m_pTextMgr;
+    std::unique_ptr<Camera> m_pCamera;	
 };
 
 #endif

@@ -36,8 +36,6 @@ void DebugDraw::DrawTriangle(Triangle* tri, Graphics* graphicsMgr)
 	vector<VertexTypeCol> verts;
 	
 
-	
-
 	verts.push_back(VertexTypeCol(XMFLOAT2(halfScrX + tri->Get2DPntByIdx(0).x, halfScrY - tri->Get2DPntByIdx(0).y), col));
 
 	verts.push_back(VertexTypeCol(XMFLOAT2(halfScrX + tri->Get2DPntByIdx(1).x, halfScrY - tri->Get2DPntByIdx(1).y), col));

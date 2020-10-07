@@ -17,9 +17,11 @@
 #include "../DirectXTemplate/WICTextureLoader.h"
 #include "../DirectXTemplate/DDSTextureLoader.h"
 
-///////////////////////
-// MY CLASS INCLUDES //
-///////////////////////
+enum TexType
+{
+	WIC, DDS, Targa
+};
+
 #include "../Headers/Utils.h"
 
 ////////////////////////////////////////////////////////////////////////////////

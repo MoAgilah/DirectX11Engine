@@ -21,16 +21,15 @@ class Keyboard
 {
 public:
 	Keyboard();
-	~Keyboard();
 
-	bool KeyIsPressed(const unsigned char keycode);
+	bool KeyIsPressed(const unsigned char& keycode);
 	bool KeyBufferIsEmpty() const;
 	bool CharBufferIsEmpty() const;
 	KeyboardEvent ReadKey();
 	unsigned char ReadChar();
-	void OnKeyPressed(const unsigned char key);
-	void OnKeyReleased(const unsigned char key);
-	void OnChar(const unsigned char key);
+	void OnKeyPressed(const unsigned char& key);
+	void OnKeyReleased(const unsigned char& key);
+	void OnChar(const unsigned char& key);
 
 	void EnableAutoRepeatedKeys();
 	void DisableAutoRepeatedKeys();

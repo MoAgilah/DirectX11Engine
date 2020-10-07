@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: HierarchyState.h
+// Filename: DemoState3D.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef HierarchyState_H
-#define HierarchyState_H
+#ifndef DemoState3D_H
+#define DemoState3D_H
 
 ////////////////////////
 // MY CLASS INCLUDES  //
@@ -22,15 +22,13 @@ enum CameraState
 	PLANE, GUN, ROBOT, FREE, MAX
 };
 
-
-
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: HierarchyState
+// Class name: DemoState3D
 ////////////////////////////////////////////////////////////////////////////////
-class HierarchyState : public GameState
+class DemoState3D : public GameState
 {
 public:
-	HierarchyState(Graphics* graphics, CollisionMgr* collisions, Input* input, Timer* timer, string stateName);
+	DemoState3D(Graphics* graphics, CollisionMgr* collisions, Timer* timer, string stateName);
 	bool Initialise();
 	void Release();
 	void Pause();

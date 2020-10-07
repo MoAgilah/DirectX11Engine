@@ -193,6 +193,12 @@
     <Filter Include="Header Files\Engine\Modules\Graphics\Debug\ImGui">
       <UniqueIdentifier>{c0cb9deb-38bd-4f2d-b02f-837998493349}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\StateManager\States">
+      <UniqueIdentifier>{d087612c-ed4d-464e-8774-5fa4c4a25ccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StateManager\States">
+      <UniqueIdentifier>{3c3e175d-4694-4c48-a493-9ed49c428032}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ColourShader.cpp">
@@ -243,12 +249,6 @@
     <ClCompile Include="Source\StateMgr.cpp">
       <Filter>Source Files\StateManager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DebugState.cpp">
-      <Filter>Source Files\StateManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BlankState.cpp">
-      <Filter>Source Files\StateManager</Filter>
-    </ClCompile>
     <ClCompile Include="DirectXTemplate\DDSTextureLoader.cpp">
       <Filter>Source Files\Engine\Modules\Graphics\Textures\TextureLoading</Filter>
     </ClCompile>
@@ -290,9 +290,6 @@
     </ClCompile>
     <ClCompile Include="Source\MeshHierarchy.cpp">
       <Filter>Source Files\Engine\Modules\Graphics\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HierarchyState.cpp">
-      <Filter>Source Files\StateManager</Filter>
     </ClCompile>
     <ClCompile Include="TinyXml2\tinyxml2.cpp">
       <Filter>Source Files\Engine\Modules\Graphics\Animation\TinyXml</Filter>
@@ -372,9 +369,6 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>Source Files\Engine\Modules\Graphics\Debug\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameObject3D.cpp">
-      <Filter>Source Files\GameObject\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Hiearchal3DObj.cpp">
       <Filter>Source Files\GameObject\3D</Filter>
     </ClCompile>
@@ -398,6 +392,18 @@
     </ClCompile>
     <ClCompile Include="Source\D2DMgr.cpp">
       <Filter>Source Files\Engine\Modules\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DebugState.cpp">
+      <Filter>Source Files\StateManager\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DemoState2D.cpp">
+      <Filter>Source Files\StateManager\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DemoState3D.cpp">
+      <Filter>Source Files\StateManager\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject3D.cpp">
+      <Filter>Source Files\GameObject\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,16 +455,7 @@
     <ClInclude Include="Headers\Utils.h">
       <Filter>Header Files\Engine\Modules\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\GameState.h">
-      <Filter>Header Files\StateManager</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\StateMgr.h">
-      <Filter>Header Files\StateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\DebugState.h">
-      <Filter>Header Files\StateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\BlankState.h">
       <Filter>Header Files\StateManager</Filter>
     </ClInclude>
     <ClInclude Include="DirectXTemplate\AlignedNew.h">
@@ -523,9 +520,6 @@
     </ClInclude>
     <ClInclude Include="Headers\MeshHierarchy.h">
       <Filter>Header Files\Engine\Modules\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\HierarchyState.h">
-      <Filter>Header Files\StateManager</Filter>
     </ClInclude>
     <ClInclude Include="TinyXml2\tinyxml2.h">
       <Filter>Header Files\Engine\Modules\Graphics\Animation\TinyXml</Filter>
@@ -640,6 +634,18 @@
     </ClInclude>
     <ClInclude Include="Headers\Helpers.h">
       <Filter>Header Files\Engine\Modules\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\GameState.h">
+      <Filter>Header Files\StateManager\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\DemoState2D.h">
+      <Filter>Header Files\StateManager\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\DemoState3D.h">
+      <Filter>Header Files\StateManager\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\DebugState.h">
+      <Filter>Header Files\StateManager\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

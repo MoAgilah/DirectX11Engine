@@ -29,3 +29,4 @@ bool IfFailMsg::operator()(HRESULT res, std::string errMsg)
 }
 
 
+

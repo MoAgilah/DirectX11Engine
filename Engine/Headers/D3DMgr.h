@@ -14,6 +14,7 @@
 //////////////
 // INCLUDES //
 //////////////
+#include <wrl/client.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <directxmath.h>
@@ -34,11 +35,11 @@ public:
 	D3DMgr();
 	~D3DMgr();
 
-	bool Initialise(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,
-		float screenDepth, float screenNear);
+	bool Initialise(const int& screenWidth, const int& screenHeight, const bool& vsync, const HWND& hwnd, const bool& fullscreen,
+		const float& screenDepth, const float& screenNear);
 	void Release();
 
-	void BeginScene(float red, float green, float blue, float alpha);
+	void BeginScene(const float& red, const float& green, const float& blue, const float& alpha);
 	void EndScene();
 	IDXGISwapChain* GetSwapChain();
 	ID3D11Device* GetDevice();
@@ -59,7 +60,9 @@ private:
 	bool m_VSyncEnabled;
 	int m_VideoCardMemory;
 	char m_VideoCardDescription[128];
-	IDXGISwapChain* m_pSwapChain;
+
+	//com pointers to be able to use pointer to get reference
+	Microsoft::WRL::ComPtr<IDXGISwapChain> m_pSwapChain;
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
 	ID3D11RenderTargetView* m_pRenderTargetView;
@@ -69,20 +72,11 @@ private:
 	ID3D11RasterizerState* m_pRasterState;
 	ID3D11RasterizerState* m_pRasterStateWireframe;
 	ID3D11DepthStencilState* m_pDepthDisabledStencilState;
+	//-------------------------------------------------------
 
 	XMMATRIX m_ProjMatrix;
 	XMMATRIX m_WorldMatrix;
 	XMMATRIX m_OrthoMatrix;
-public:
-	void* operator new(size_t i)
-	{
-		return _mm_malloc(i, 16);
-	}
-
-	void operator delete(void* p)
-	{
-		_mm_free(p);
-	}
 };
 
 #endif

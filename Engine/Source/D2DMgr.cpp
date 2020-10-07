@@ -103,7 +103,7 @@ bool D2DMgr::CreateBitmapRenderTarget(HWND hwnd)
 	bp.colorContext = nullptr;
 
 	// Direct2D needs the DXGI version of the back buffer
-	IDXGISurface* dxgiBuffer;
+	IDXGISurface* dxgiBuffer = nullptr;
 	
 	if (!fo_IfFailMsg(m_D3Dptr->GetSwapChain()->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(&dxgiBuffer)),"Failed to retrieve the back buffer!"))
 		return false;

@@ -1,15 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: BlankState.h
+// Filename: DemoState2D.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef BlankState_H
-#define BlankState_H
+#ifndef DemoState2D_H
+#define DemoState2D_H
 
 ////////////////////////
 // MY CLASS INCLUDES  //
 ///////////////////////
 #include "../Headers/Utils.h"
 #include "../Headers/GameState.h"
-#include "../Headers/Light.h"
 
 #include "../Headers/Paddle.h"
 #include "../Headers/Ball.h"
@@ -17,12 +16,12 @@
 using namespace DirectX;
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: BlankState
+// Class name: DemoState2D
 ////////////////////////////////////////////////////////////////////////////////
-class BlankState : public GameState
+class DemoState2D : public GameState
 {
 public:
-	BlankState(Graphics* graphics, CollisionMgr* collisions, Input* input, Timer* timer, string stateName);
+	DemoState2D(Graphics* graphics, CollisionMgr* collisions, Timer* timer, string stateName);
 	bool Initialise();
 	void Release();
 	void Pause();

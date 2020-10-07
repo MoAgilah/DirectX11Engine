@@ -8,7 +8,7 @@ KeyboardEvent::KeyboardEvent()
 {
 }
 
-KeyboardEvent::KeyboardEvent(const KEventType type, const unsigned char key)
+KeyboardEvent::KeyboardEvent(const KEventType& type, const unsigned char& key)
 	: m_KEventType(type), m_cKey(key)
 {
 }

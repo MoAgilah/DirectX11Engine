@@ -28,6 +28,8 @@ TextMgr::~TextMgr()
 
 void TextMgr::Release()
 {
+	m_pD2DMgr = nullptr;
+
 	for (int i = 0; i < m_vpBrushes.size(); i++)
 	{
 		SAFE_RELEASE(m_vpBrushes[i]);
