@@ -826,6 +826,9 @@
     <None Include="Resources\Models\Robot\right_wrist.x">
       <Filter>Resource Files\Models\Robot</Filter>
     </None>
+    <None Include="Resources\Data\C++ Comeback Tour .docx">
+      <Filter>Resource Files\Data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libs\x86\assimp.lib">

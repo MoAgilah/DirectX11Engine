@@ -36,7 +36,7 @@ bool Framework::Initialise()
 	ImGui::StyleColorsDark();
 	//------------------------------
 
-	m_pStateManager->ChangeState(new DemoState2D(m_pGraphics.get(), m_pCollisionsMgr.get(), &m_Timer, "Hierarchy State"));
+	m_pStateManager->ChangeState(new DemoState3D(m_pGraphics.get(), m_pCollisionsMgr.get(), &m_Timer, "Hierarchy State"));
 
 	return true;
 }
@@ -299,7 +299,7 @@ void Framework::ProcessInput()
 		PostQuitMessage(0);
 	}
 
-	/*
+	
 	float cameraSpeed = 20.0f;
 
 	if (Input::GetInput()->GetKeyboard()->KeyIsPressed(VK_UP))
@@ -341,7 +341,7 @@ void Framework::ProcessInput()
 	{
 		m_pGraphics->GetCamera()->Strafe(cameraSpeed * m_Timer.DeltaTime());
 	}
-	*/
+	
 }
 
 void Framework::UpdateScene(const float& deltatime)

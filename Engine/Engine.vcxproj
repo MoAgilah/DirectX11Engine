@@ -401,6 +401,7 @@
     <Image Include="Resources\Images\test.tga" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Data\C++ Comeback Tour .docx" />
     <None Include="Resources\Models\Plane\bullet.x" />
     <None Include="Resources\Models\Plane\gun.x" />
     <None Include="Resources\Models\Plane\plane.x" />
