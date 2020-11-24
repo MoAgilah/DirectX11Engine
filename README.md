@@ -1,2 +1,2 @@
-# DirectX11Engine
+# DirectX11Engine(OLD)
 A DirectX11 Engine to build on thing's I learned at university and to continue learning whilst I look for a job in the industry as I expand my knowledge. I want to understand the intricacy of DirectX11 before moving towards the more current DirectX12, After putting the rest of my code and c.v. on here and on LinkedIn I will continue and update the description to relay what I am currently working on. At present I am refactoring and setting up the engine to display it's capabilities now before moving forward. 
